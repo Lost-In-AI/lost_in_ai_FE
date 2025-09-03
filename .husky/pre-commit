@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+echo "🎨 Formattazione codice con Prettier..."
+npx prettier --write "src/**/*.{ts,tsx,js,jsx,json,css,md}"
+
+echo "🔍 Controllo ESLint..."
+npm run lint
+if [ $? -ne 0 ]; then
+  echo "❌ ESLint ha rilevato errori. Commit bloccato!"
+  exit 1
+fi
+
+echo "🧪 Controllo TypeScript (type-check)..."
+npx tsc --noEmit
+if [ $? -ne 0 ]; then
+  echo "❌ Errori di TypeScript rilevati. Commit bloccato!"
+  exit 1
+fi
+
+echo "✅ Pre-commit completato!"
