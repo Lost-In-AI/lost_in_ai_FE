@@ -1,24 +1,24 @@
-import { useBearStore } from "./store/useBearStore";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import type { NavigationType } from "../types/type";
 
-function App() {
-  const bears = useBearStore((state) => state.bears);
-  const increasePopulation = useBearStore((state) => state.increasePopulation);
-  const removeAllBears = useBearStore((state) => state.removeAllBears);
-
+export default function App() {
+  const navigation: NavigationType[] = [
+    {
+      path: "/",
+      element: <Home />,
+    },
+    // aggiungi qui altre pagine, se serviranno
+  ];
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold text-blue-600">Zustand test</h1>
-      <p className="mt-2 text-gray-700">Number of bears: {bears}</p>
-      <div className="mt-4 flex gap-4">
-        <button className="px-4 py-2 bg-green-500 text-white rounded" onClick={increasePopulation}>
-          Add bear
-        </button>
-        <button className="px-4 py-2 bg-red-500 text-white rounded" onClick={removeAllBears}>
-          Remove all
-        </button>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route>
+          {navigation &&
+            navigation.length > 0 &&
+            navigation.map((route) => <Route key={route.path} path={route.path} element={route.element} />)}
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
