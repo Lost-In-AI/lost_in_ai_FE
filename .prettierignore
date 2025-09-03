@@ -1,0 +1,14 @@
+.gitignore
+.prettierignore
+yarn.lock
+yarn-error.log
+package-lock.json
+dist
+coverage
+pnpm-lock.yaml
+node_modules
+packages/keycloakify-theme/public
+packages/keycloakify-theme/src/email/html
+build
+build_keycloak
+storybook-static
