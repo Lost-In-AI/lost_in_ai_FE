@@ -1,4 +1,40 @@
 @import "tailwindcss";
+
+/** 
+  Temporary colors, will be replaced by design system ones. 
+  Palette generated with https://www.tints.dev/
+  */
+@theme {
+  --color-primary-50: oklch(99.16% 0.008 114.03);
+  --color-primary-100: oklch(99.16% 0.008 114.03);
+  --color-primary-200: oklch(97.35% 0.028 115.62);
+  --color-primary-300: oklch(96.38% 0.04 116.3);
+  --color-primary-400: oklch(95.38% 0.045 115.36);
+  --color-primary-500: oklch(81.59% 0.038 113.83);
+  --color-primary-600: oklch(67.97% 0.033 115.27);
+  --color-primary-700: oklch(54.09% 0.026 115.37);
+  --color-primary-800: oklch(41.11% 0.018 115.53);
+  --color-primary-900: oklch(27.61% 0.015 118.74);
+  --color-primary-950: oklch(20.6% 0.01 116.42);
+  --color-secondary-50: oklch(95.75% 0.008 228.74);
+  --color-secondary-100: oklch(90.4% 0.017 225.15);
+  --color-secondary-200: oklch(81.58% 0.035 225.52);
+  --color-secondary-300: oklch(72.22% 0.031 223.91);
+  --color-secondary-400: oklch(63.65% 0.028 225.54);
+  --color-secondary-500: oklch(54.06% 0.023 224.58);
+  --color-secondary-600: oklch(44.78% 0.019 227.34);
+  --color-secondary-700: oklch(36.05% 0.016 229.38);
+  --color-secondary-800: oklch(26.71% 0.011 225.53);
+  --color-secondary-900: oklch(20.52% 0.01 234.27);
+  --color-secondary-950: oklch(16.45% 0.007 214.48);
+
+  --color-base-background: var(--color-primary-50);
+  --color-base-text: var(--color-primary-900);
+  --color-border: var(--color-primary-200);
+  --color-disabled: var(--color-secondary-100);
+  --color-error: oklch(54.53% 0.222 27.05);
+}
+
 html,
 body,
 #root {
@@ -10,9 +46,8 @@ body,
 }
 
 body {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-  color: rgb(17 24 39 / 1);
+  background-color: var(--color-base-background);
+  color: var(--color-base-text);
   margin: 0;
 }
 
