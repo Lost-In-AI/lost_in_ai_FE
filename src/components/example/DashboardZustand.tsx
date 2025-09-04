@@ -2,6 +2,7 @@ import type { ExampleBtn } from "../../../types/type";
 import { useBearStore } from "../../store/useBearStore";
 import Button from "../button/Button";
 
+// React è fatto di componenti, componentizza il più possibile
 export default function DashboardZustand() {
   const { bears, increasePopulation, removeAllBears, doublePopulation } = useBearStore(); // utilizzo global state
   // const { isDarkmode, toggleTheme } = useTheme() esempio di utilizzo di un custom hook
@@ -30,8 +31,8 @@ export default function DashboardZustand() {
       <div className="mt-4  flex gap-4 justify-center">
         {exampleBtn &&
           exampleBtn.length > 0 &&
-          exampleBtn.map((item) => (
-            <Button key={item.text} text={item.text} handleClick={item.handleClick} className={item.className} />
+          exampleBtn.map((item, index) => (
+            <Button key={index} text={item.text} handleClick={item.handleClick} className={item.className} />
           ))}
       </div>
     </div>
