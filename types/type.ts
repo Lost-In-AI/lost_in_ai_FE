@@ -10,25 +10,3 @@ export interface ExampleBtn {
   text: string;
   className: string;
 }
-
-// Tipizzazione per il mock delle API responses che simulano la chat
-
-export type ValueOf<T> = T[keyof T];
-
-export const Sender = {
-  BOT: "bot",
-  USER: "user",
-} as const;
-
-export interface Message {
-  sender: ValueOf<typeof Sender>;
-  text: string;
-  timestamp?: string;
-}
-
-export interface SessionData {
-  sessionID: string;
-  history: Message[];
-  currentMessage?: string;
-  summary?: string;
-}

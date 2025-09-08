@@ -6,7 +6,7 @@ interface ButtonProps {
   className?: string; // opzionale
 }
 
-export default function Button({ handleClick, text, className }: Readonly<ButtonProps>) {
+export default function Button({ handleClick, text, className }: ButtonProps) {
   return (
     <button className={`px-4 py-2 ${className} text-white rounded`} onClick={() => handleClick()}>
       {text}
