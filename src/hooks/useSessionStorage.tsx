@@ -21,21 +21,23 @@ export default function useSessionStorage() {
 
   useEffect(() => {
     const loadMockData = async () => {
-      if (sessionData) {
-        try {
-          console.log("fetch");
-          const response = await fetch("/mocks/chatbot.json");
-          if (!response.ok) {
-            throw new Error(`Error has occured ${response.status}`);
-          }
-          const mockData: SessionData = await response.json();
-          sessionStorage.setItem("session", JSON.stringify(mockData));
-          setSessionData(mockData);
-        } catch (error) {
-          console.error("Failed to load mock data:", error);
-        } finally {
+      try {
+        const existing = sessionStorage.getItem("session");
+        if (existing) {
           setIsLoading(false);
+          return;
         }
+        const response = await fetch("/mocks/chatbot.json");
+        if (!response.ok) {
+          throw new Error(`Error has occured ${response.status}`);
+        }
+        const mockData: SessionData = await response.json();
+        sessionStorage.setItem("session", JSON.stringify(mockData));
+        setSessionData(mockData);
+      } catch (error) {
+        console.error("Failed to load mock data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     loadMockData();
