@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 /**
  * AudioContext e sorgente condivisi a livello di modulo.
@@ -8,59 +8,62 @@ let audioSource: AudioBufferSourceNode | null = null;
 
 type AudioContextConstructor = new (contextOptions?: AudioContextOptions) => AudioContext;
 
+// Interfaccia per tipizzare globalThis con le proprietà AudioContext
+interface GlobalWithAudioContext {
+  AudioContext?: AudioContextConstructor;
+  webkitAudioContext?: AudioContextConstructor;
+}
+
 /**
  * Hook semplice per gestire musica di attesa con Web Audio API.
  */
 export function useMusic(defaultDurationSec?: number) {
-  // Stato che indica se la musica sta suonando
   const [isPlaying, setIsPlaying] = useState(false);
+
+  /**
+   * Inizializza l'AudioContext se non esiste
+   */
+  function initAudioContext() {
+    if (!audioContext) {
+      const globalWithAudio = globalThis as unknown as GlobalWithAudioContext;
+      const AudioContextCtor = (globalWithAudio.AudioContext ||
+        globalWithAudio.webkitAudioContext) as AudioContextConstructor;
+      audioContext = new AudioContextCtor();
+    }
+    return audioContext;
+  }
 
   /**
    * Avvia la musica
    */
   async function play(src: string, durationSec?: number) {
-    // Se c'è una sorgente in corso, si può interrompere senza chiudere il context
+    // Se c'è una sorgente in corso, fermala
     if (audioSource) {
-      try {
-        audioSource.onended = null;
-        audioSource.stop(0);
-        audioSource.disconnect();
-      } catch {
-        // ignora errori di stop/disconnect
-      }
+      audioSource.onended = null;
+      audioSource.stop(0);
+      audioSource.disconnect();
       audioSource = null;
     }
 
     try {
-      // Crea un AudioContext compatibile anche con Safari (webkitAudioContext)
-      const g = globalThis as unknown as {
-        AudioContext?: AudioContextConstructor;
-        webkitAudioContext?: AudioContextConstructor;
-      };
-      const Ctx = g.AudioContext ?? g.webkitAudioContext;
-      if (!Ctx) {
-        if (import.meta.env.DEV) console.log("Web Audio API non supportata");
-        return;
-      }
-
-      // Istanzia e usa un riferimento non nullo
-      const ctx = (audioContext ??= new Ctx());
+      // Usa o crea l'AudioContext condiviso
+      const context = initAudioContext();
 
       // In caso il context sia sospeso, riprende
-      if (ctx.state === "suspended") {
-        await ctx.resume();
+      if (context.state === "suspended") {
+        await context.resume();
       }
 
       // Carica e decodifica l'audio
       const response = await fetch(src);
       const arrayBuffer = await response.arrayBuffer();
-      const audioBuffer = await ctx.decodeAudioData(arrayBuffer.slice(0));
+      const audioBuffer = await context.decodeAudioData(arrayBuffer);
 
       // Crea la sorgente, la collega e la mette in loop
-      const source = ctx.createBufferSource();
+      const source = context.createBufferSource();
       source.buffer = audioBuffer;
       source.loop = true;
-      source.connect(ctx.destination);
+      source.connect(context.destination);
       source.onended = () => setIsPlaying(false);
 
       audioSource = source;
@@ -70,11 +73,10 @@ export function useMusic(defaultDurationSec?: number) {
       setIsPlaying(true);
 
       // Programma auto-stop solo se è stata passata una durata
-      const timeSec = durationSec ?? defaultDurationSec;
+      const timeSec = durationSec || defaultDurationSec;
       if (timeSec && timeSec > 0) {
         const current = audioSource;
         window.setTimeout(() => {
-          // Evita che un timeout "vecchio" fermi una riproduzione "nuova"
           if (audioSource === current) {
             stop();
           }
@@ -82,7 +84,6 @@ export function useMusic(defaultDurationSec?: number) {
       }
     } catch (err) {
       if (import.meta.env.DEV) console.error("Errore durante il play:", err);
-      // In caso di errore, riportiamo il sistema in stato pulito
       stop();
     }
   }
@@ -116,34 +117,20 @@ export function useMusic(defaultDurationSec?: number) {
   }
 
   /**
-   * Ferma la riproduzione e rilascia la sorgente/context.
+   * Ferma la riproduzione e rilascia la sorgente.
    */
   function stop() {
     if (audioSource) {
       try {
-        audioSource.onended = null;
-        audioSource.stop(0);
+        audioSource.stop();
         audioSource.disconnect();
       } catch {
         // Ignora eventuali errori di stop/disconnect
       }
       audioSource = null;
     }
-
-    if (audioContext) {
-      void audioContext.close().catch(() => {});
-      audioContext = null;
-    }
-
     setIsPlaying(false);
   }
-
-  // Cleanup quando il componente che usa l'hook viene smontato
-  useEffect(() => {
-    return () => {
-      stop();
-    };
-  }, []);
 
   return {
     isPlaying,
