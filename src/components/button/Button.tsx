@@ -1,4 +1,3 @@
-
 // l interface dei componenti meglio tenerla nel file del componente stesso
 interface ButtonProps {
   handleClick: () => void;

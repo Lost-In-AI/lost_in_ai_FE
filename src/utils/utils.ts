@@ -10,11 +10,14 @@ export function generateSessionID() {
 }
 
 export function formatTimestap(timestamp?: string) {
-  if (!timestamp) return null
-  return new Date(timestamp).toLocaleTimeString('it-IT', { 
-    hour: '2-digit', 
-    minute: '2-digit' 
-  })
+  if (!timestamp) return null;
+  return new Date(timestamp).toLocaleTimeString("it-IT", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
-
+// funzione del modulo per generare una durata casuale tra 5 e 10 secondi
+export function randomDurationSec() {
+  return Math.floor(5 + Math.random() * 6);
+}
