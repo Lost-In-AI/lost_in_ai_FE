@@ -28,7 +28,6 @@
   --color-secondary-900: oklch(23.56% 0.046 77.82);
   --color-secondary-950: oklch(17.93% 0.035 76.47);
 
-
   --color-base-background: var(--color-primary-50);
   --color-base-text: var(--color-primary-900);
   --color-border: var(--color-primary-200);
