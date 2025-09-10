@@ -12,13 +12,26 @@ export default function App() {
   ];
   return (
     <BrowserRouter>
-      <Routes>
-        <Route>
-          {navigation &&
-            navigation.length > 0 &&
-            navigation.map((route) => <Route key={route.path} path={route.path} element={route.element} />)}
-        </Route>
-      </Routes>
+      {/* Layout principale */}
+      <div className="min-h-screen bg-base-background">
+
+        {/* Main content area */}
+        <main className="relative">
+          <Routes>
+            <Route>
+              {navigation &&
+                navigation.length > 0 &&
+                navigation.map((route) => (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={route.element}
+                  />
+                ))}
+            </Route>
+          </Routes>
+        </main>
+      </div>
     </BrowserRouter>
   );
 }
