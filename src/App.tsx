@@ -6,10 +6,11 @@ export default function App() {
   const navigation: NavigationType[] = [
     {
       path: "/",
-      element: <Home />,
-    },
+      element: <Home />, // Landing page come homepage
+    }
     // aggiungi qui altre pagine, se serviranno
   ];
+
   return (
     <BrowserRouter>
       {/* Layout principale */}
@@ -21,13 +22,7 @@ export default function App() {
             <Route>
               {navigation &&
                 navigation.length > 0 &&
-                navigation.map((route) => (
-                  <Route
-                    key={route.path}
-                    path={route.path}
-                    element={route.element}
-                  />
-                ))}
+                navigation.map((route) => <Route key={route.path} path={route.path} element={route.element} />)}
             </Route>
           </Routes>
         </main>
