@@ -14,20 +14,13 @@ export default function App() {
     <BrowserRouter>
       {/* Layout principale */}
       <div className="min-h-screen bg-base-background">
-
         {/* Main content area */}
         <main className="relative">
           <Routes>
             <Route>
               {navigation &&
                 navigation.length > 0 &&
-                navigation.map((route) => (
-                  <Route
-                    key={route.path}
-                    path={route.path}
-                    element={route.element}
-                  />
-                ))}
+                navigation.map((route) => <Route key={route.path} path={route.path} element={route.element} />)}
             </Route>
           </Routes>
         </main>
