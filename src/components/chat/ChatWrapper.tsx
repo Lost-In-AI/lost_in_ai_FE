@@ -26,11 +26,11 @@ export default function ChatWrapper({ children }: ChatWrapperProps) {
   }, [children, sessionData]);
 
   return (
-    <section className="fixed inset-0 flex pointer-events-none flex-col">
+    <section className="fixed inset-0 flex pointer-events-none flex-col mt-20 sm:mt-0">
       {isVisible && (
         <div
           tabIndex={0}
-          className="flex flex-col w-[95%] h-[80vh] sm:max-w-[1199px] sm:absolute sm:right-12 sm:bottom-4 mx-auto mt-4 mb-24 backdrop-blur-sm bg-white p-0.5 rounded-lg pointer-events-auto shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-700/50"
+          className="flex flex-col w-[95%] h-[80vh] sm:max-w-[1199px] sm:absolute sm:right-6 sm:bottom-0 mx-auto  mb-24 backdrop-blur-sm bg-white p-0.5 rounded-lg pointer-events-auto shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-700/50"
         >
           <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4">
             <Header onClose={() => setIsVisible(!isVisible)} />
@@ -42,7 +42,7 @@ export default function ChatWrapper({ children }: ChatWrapperProps) {
       )}
       {/* TODO: mettere il botton vero */}
       <button
-        className="bg-primary-700 absolute bottom-4 text-white right-4 md:bottom-8 md:right-12 px-4 w-16 h-16 rounded-lg pointer-events-auto "
+        className="bg-primary-700 absolute bottom-4 text-white right-4 md:bottom-4 md:right-5 px-4 w-16 h-16 rounded-lg pointer-events-auto "
         onClick={() => setIsVisible(!isVisible)}
       >
         {isVisible ? "Close" : "Open"}

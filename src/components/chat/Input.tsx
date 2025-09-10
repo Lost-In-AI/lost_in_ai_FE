@@ -48,7 +48,7 @@ export default function Input() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex mr-8 gap-2 mt-auto max-w-7xl pl-4 pb-4 pt-4">
+    <form onSubmit={handleSubmit} className="flex sm:mr-8 gap-2 mt-auto w-full  sm:max-w-7xl p-4 ">
       <input
         type="text"
         value={message ?? ""}
