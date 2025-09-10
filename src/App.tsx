@@ -7,16 +7,14 @@ export default function App() {
     {
       path: "/",
       element: <Home />, // Landing page come homepage
-    }
+    },
     // aggiungi qui altre pagine, se serviranno
   ];
-
 
   return (
     <BrowserRouter>
       {/* Layout principale */}
       <div className="min-h-screen bg-base-background">
-
         {/* Main content area */}
         <main className="relative">
           <Routes>

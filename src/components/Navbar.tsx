@@ -5,15 +5,10 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo posizionato a sinistra */}
           <div className="flex-shrink-0 flex items-center">
-            <img
-              className="h-8 w-auto"
-              src="/logo.png"
-              alt="Lost In AI"
-            />
+            <img className="h-8 w-auto" src="/logo.png" alt="Lost In AI" />
           </div>
         </div>
       </div>
     </nav>
   );
 }
-
