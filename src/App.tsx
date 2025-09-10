@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
 import type { NavigationType } from "../types/type";
 
 export default function App() {
@@ -15,8 +14,6 @@ export default function App() {
     <BrowserRouter>
       {/* Layout principale */}
       <div className="min-h-screen bg-base-background">
-        {/* Navbar sticky in cima */}
-        <Navbar />
 
         {/* Main content area */}
         <main className="relative">
