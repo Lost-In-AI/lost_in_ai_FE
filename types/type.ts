@@ -11,6 +11,10 @@ export interface ExampleBtn {
   className: string;
 }
 
+export const Endpoint = {
+  SEND_MESSAGE: import.meta.env.VITE_BE_BASE_URL as string,
+} as const;
+
 // Tipizzazione per il mock delle API responses che simulano la chat
 
 export type ValueOf<T> = T[keyof T];
