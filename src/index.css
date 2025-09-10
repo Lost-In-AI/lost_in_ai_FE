@@ -39,21 +39,36 @@ html,
 body,
 #root {
   height: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
 
 body {
-  background-color: var(--color-base-background);
+  background-color: #ffffff;
   color: var(--color-base-text);
   margin: 0;
+  overflow-x: hidden;
 }
 
 #root {
   width: 100%;
   min-height: 100%;
+}
+
+/* Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Stili per la landing page */
+.prose {
+  color: var(--color-primary-800);
+}
+
+.prose p {
+  margin-bottom: 1rem;
 }
 
 /* Supporto responsive fino a 320px */
@@ -96,4 +111,19 @@ body {
 nav {
   width: 100%;
   box-sizing: border-box;
+}
+
+/* Animazione per il banner */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.banner-text {
+  animation: float 3s ease-in-out infinite;
 }

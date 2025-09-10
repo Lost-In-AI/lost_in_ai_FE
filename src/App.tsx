@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import type { NavigationType } from "../types/type";
@@ -7,30 +8,25 @@ export default function App() {
   const navigation: NavigationType[] = [
     {
       path: "/",
+      element: <Landing />, // Landing page come homepage
+    },
+    {
+      path: "/chat",
       element: <Home />,
     },
     // aggiungi qui altre pagine, se serviranno
   ];
+
   return (
     <BrowserRouter>
-      {/* Layout principale */}
-      <div className="min-h-screen bg-base-background">
-        {/* Navbar sticky in cima */}
+      <div className="min-h-screen">
         <Navbar />
-
-        {/* Main content area */}
         <main className="relative">
           <Routes>
             <Route>
               {navigation &&
                 navigation.length > 0 &&
-                navigation.map((route) => (
-                  <Route
-                    key={route.path}
-                    path={route.path}
-                    element={route.element}
-                  />
-                ))}
+                navigation.map((route) => <Route key={route.path} path={route.path} element={route.element} />)}
             </Route>
           </Routes>
         </main>
