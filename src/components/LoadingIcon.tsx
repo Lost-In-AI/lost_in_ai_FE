@@ -14,13 +14,7 @@ export default function LoadingIcon({ color }: LoadingIconProps) {
           repeatCount="indefinite"
           begin="-.4"
         ></animate>
-        <animate
-          attributeName="opacity"
-          dur="2"
-          values="0.3;1;0.3;"
-          repeatCount="indefinite"
-          begin="-.4"
-        ></animate>
+        <animate attributeName="opacity" dur="2" values="0.3;1;0.3;" repeatCount="indefinite" begin="-.4"></animate>
       </circle>
       <circle fill={color} stroke={color} stroke-width="20" r="20" cx="100" cy="65">
         <animate
@@ -32,13 +26,7 @@ export default function LoadingIcon({ color }: LoadingIconProps) {
           repeatCount="indefinite"
           begin="-.2"
         ></animate>
-        <animate
-          attributeName="opacity"
-          dur="2"
-          values="0.3;1;0.3;"
-          repeatCount="indefinite"
-          begin="-.2"
-        ></animate>
+        <animate attributeName="opacity" dur="2" values="0.3;1;0.3;" repeatCount="indefinite" begin="-.2"></animate>
       </circle>
       <circle fill={color} stroke={color} stroke-width="20" r="20" cx="160" cy="65">
         <animate
@@ -50,13 +38,7 @@ export default function LoadingIcon({ color }: LoadingIconProps) {
           repeatCount="indefinite"
           begin="0"
         ></animate>
-        <animate
-          attributeName="opacity"
-          dur="2"
-          values="0.3;1;0.3;"
-          repeatCount="indefinite"
-          begin="0"
-        ></animate>
+        <animate attributeName="opacity" dur="2" values="0.3;1;0.3;" repeatCount="indefinite" begin="0"></animate>
       </circle>
     </svg>
   );
