@@ -28,7 +28,7 @@ export default function ChatWrapper({ children }: ChatWrapperProps) {
   return (
     <section className="fixed inset-0 flex pointer-events-none flex-col">
       {isVisible && (
-        <div 
+        <div
           tabIndex={0}
           className="flex flex-col w-[95%] h-[80vh] sm:max-w-[1199px] sm:absolute sm:right-12 sm:bottom-4 mx-auto mt-4 mb-24 backdrop-blur-sm bg-white p-0.5 rounded-lg pointer-events-auto shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-700/50"
         >
