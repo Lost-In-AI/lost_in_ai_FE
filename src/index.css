@@ -39,19 +39,12 @@ html,
 body,
 #root {
   height: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  min-height: 100%;
 }
 
 body {
-  background-color: var(--color-base-background);
+  background-color: darkgray;
   color: var(--color-base-text);
   margin: 0;
-}
-
-#root {
-  width: 100%;
-  min-height: 100%;
 }
