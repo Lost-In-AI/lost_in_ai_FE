@@ -6,7 +6,7 @@ export default function App() {
   const navigation: NavigationType[] = [
     {
       path: "/",
-      element: <Home />, // Landing page come homepage
+      element: <Home />,
     },
     // aggiungi qui altre pagine, se serviranno
   ];
