@@ -1,27 +1,22 @@
-import { useState } from "react";
 import { Endpoint, type Message } from "../../types/type";
 import { useChatStatusStore } from "../store/useChatStatusStore";
 import { useMusic } from "./useMusic";
 import bell from "../assets/audio/creepy-halloween-bell-trap-melody-247720.mp3";
 import { useSessionStore } from "../store/useSessionStore";
-
-interface HandleUserMessageProps {
-  message: Message;
-}
+import { randomDurationSec } from "../utils/utils";
 
 /**
  * Custom hook handling the user's sending process
  */
 export default function useHandleUserMessage() {
-  const musicController = useMusic();
+  const { play, stop } = useMusic();
   const chatStatus = useChatStatusStore();
   const { sessionData, updateSession } = useSessionStore();
-  const [response, setResponse] = useState<Message>();
 
-  const handleUserMessage = async ({ message }: HandleUserMessageProps) => {
+  async function handleUserMessage(message: Message) {
     try {
       // Set request's state as pending
-      await musicController.play(bell, 10);
+      await play(bell, randomDurationSec());
       chatStatus.setStatus("pending");
 
       // Add the user's message to the chat history
@@ -29,6 +24,9 @@ export default function useHandleUserMessage() {
       updateSession({
         history: updatedHistory,
       });
+
+      // Timer to make the user wait more then necessary
+      await new Promise((resolve) => setTimeout(resolve, randomDurationSec() * 1000));
 
       // Handle fetching
       const response = await fetch(Endpoint.SEND_MESSAGE, {
@@ -43,20 +41,23 @@ export default function useHandleUserMessage() {
       }
 
       const botResponse: Message = await response.json();
-      setResponse(botResponse);
 
       // If the fetch succeeds, add the bot's response to the chat history
-      updateSession({
-        history: [...updatedHistory, botResponse],
-      });
+      if (botResponse) {
+        updateSession({
+          history: [...updatedHistory, botResponse],
+        });
+      } else {
+        console.error("Error while updating response's value", botResponse);
+      }
     } catch (error) {
       console.error("Error while posting message: ", error);
     } finally {
       // In any case, set the client as idle
-      musicController.stop();
+      stop();
       chatStatus.setStatus("idle");
     }
-  };
+  }
 
-  return { handleUserMessage, response };
+  return { handleUserMessage };
 }
