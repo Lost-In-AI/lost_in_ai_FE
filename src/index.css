@@ -46,13 +46,8 @@ body,
 }
 
 body {
-  background-color: #ffffff;
+  background-color: darkgray;
   color: var(--color-base-text);
   margin: 0;
   overflow-x: hidden;
-}
-
-#root {
-  width: 100%;
-  min-height: 100%;
 }
