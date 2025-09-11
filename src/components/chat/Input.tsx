@@ -1,14 +1,10 @@
-import React, { useState, useRef } from "react";
-import { useSessionStore } from "../../store/useSessionStore";
+import React, { useState } from "react";
 import { Sender } from "../../../types/type";
-import { useChatStatusStore } from "../../store/useChatStatusStore";
-import { randomDurationSec } from "../../utils/utils";
+import useHandleUserMessage from "../../hooks/useHandleUserMessage";
 
 export default function Input() {
   const [message, setMessage] = useState<string | null>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const { sessionData, updateSession } = useSessionStore();
-  const { setStatus } = useChatStatusStore();
+  const { handleUserMessage } = useHandleUserMessage();
 
   /*
   - usando il timeoutRef solo l ultimo messaggio dell utente riceve risposta (es: se l utente manda 3 messaggi di seguito senza aspettare la risposta del bot)
@@ -24,26 +20,24 @@ export default function Input() {
         text: trimmedMessage,
         timestamp: new Date().toISOString(),
       };
-      const updatedHistory = [...(sessionData.history || []), newMessage];
-      updateSession({
-        history: updatedHistory,
-      });
-      setStatus("pending");
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-      timeoutRef.current = setTimeout(() => {
-        const responseBE = {
-          sender: Sender.BOT,
-          text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo saepe harum delectus quis quaerat maiores ab ea similique tempore sunt, soluta vel incidunt eveniet, nemo rerum assumenda iure expedita blanditiis.",
-          timestamp: new Date().toISOString(),
-        };
-        setStatus("idle");
-        updateSession({
-          history: [...updatedHistory, responseBE],
-        });
-        timeoutRef.current = null; // Reset del ref
-      }, randomDurationSec() * 1000); // random tra 5 e 10
+
+      await handleUserMessage(newMessage);
+      // setStatus("pending");
+      // if (timeoutRef.current) {
+      //   clearTimeout(timeoutRef.current);
+      // }
+      // timeoutRef.current = setTimeout(() => {
+      //   const responseBE = {
+      //     sender: Sender.BOT,
+      //     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo saepe harum delectus quis quaerat maiores ab ea similique tempore sunt, soluta vel incidunt eveniet, nemo rerum assumenda iure expedita blanditiis.",
+      //     timestamp: new Date().toISOString(),
+      //   };
+      //   setStatus("idle");
+      //   updateSession({
+      //     history: [...updatedHistory, responseBE],
+      //   });
+      //   timeoutRef.current = null; // Reset del ref
+      // }, randomDurationSec() * 1000); // random tra 5 e 10
     }
   }
 
