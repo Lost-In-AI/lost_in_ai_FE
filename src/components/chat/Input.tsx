@@ -21,7 +21,7 @@ export default function Input() {
         timestamp: new Date().toISOString(),
       };
 
-      await handleUserMessage({ message: newMessage });
+      await handleUserMessage(newMessage);
       // setStatus("pending");
       // if (timeoutRef.current) {
       //   clearTimeout(timeoutRef.current);
