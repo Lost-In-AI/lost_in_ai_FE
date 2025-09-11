@@ -10,6 +10,7 @@ export default function App() {
     },
     // aggiungi qui altre pagine, se serviranno
   ];
+
   return (
     <BrowserRouter>
       {/* Layout principale */}

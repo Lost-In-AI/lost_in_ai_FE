@@ -5,6 +5,9 @@ import { formatTimestap } from "../utils/utils";
 import { useEffect } from "react";
 import { useSessionStore } from "../store/useSessionStore";
 import Navbar from "../components/Navbar";
+import Banner from "../components/Banner";
+import MainSection from "../components/MainSection";
+
 
 export default function Home() {
   const { sessionData, isLoading, loadMockData } = useSessionStore();
@@ -16,6 +19,8 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      <Banner />
+      <MainSection />
       <ChatWrapper>
         {!isLoading &&
           sessionData &&

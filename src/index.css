@@ -40,11 +40,14 @@ body,
 #root {
   height: 100%;
   width: 100%;
-  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
 
 body {
   background-color: darkgray;
   color: var(--color-base-text);
   margin: 0;
+  overflow-x: hidden;
 }
