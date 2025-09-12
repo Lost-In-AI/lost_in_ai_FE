@@ -35,7 +35,7 @@ export default function useHandleUserMessage() {
         if (botResponse.music) {
           // Se BE ci manda la musica, aggiungiamo il tempo della musica al delay base
           const musicDuration = randomDurationSec();
-          await play(bell, musicDuration);
+          await play(bell, totalDelayMs + totalDelayMs);
           totalDelayMs += musicDuration * 1000;
         }
         await new Promise((resolve) => setTimeout(resolve, totalDelayMs));
