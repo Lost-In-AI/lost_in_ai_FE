@@ -4,7 +4,7 @@ export default function Banner() {
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/20"></div>
 
-      <div className="relative z-10 text-center px-4">
+      <div className="relative z-0 text-center px-4">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-2 drop-shadow-lg">
           I tuoi risparmi?
         </h1>
