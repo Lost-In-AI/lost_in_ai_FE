@@ -9,7 +9,7 @@ export default function Input() {
     e.preventDefault();
     if (message?.trim()) {
       const trimmedMessage = message.trim();
-      setMessage(""); 
+      setMessage("");
       const newMessage = {
         sender: Sender.USER,
         text: trimmedMessage,

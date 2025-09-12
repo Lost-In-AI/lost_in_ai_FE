@@ -1,8 +1,6 @@
 export default function Banner() {
   return (
-    <section
-      className="relative h-64 flex items-center justify-center bg-cover bg-center bg-no-repeat bg-[url('/images/money-background.png')]"
-    >
+    <section className="relative h-64 flex items-center justify-center bg-cover bg-center bg-no-repeat bg-[url('/images/money-background.png')]">
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/20"></div>
 

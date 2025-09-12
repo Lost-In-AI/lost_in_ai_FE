@@ -38,7 +38,7 @@ export default function useHandleUserMessage() {
           await play(bell, musicDuration);
           totalDelayMs += musicDuration * 1000;
         }
-        await new Promise((resolve) => setTimeout(resolve, totalDelayMs)); 
+        await new Promise((resolve) => setTimeout(resolve, totalDelayMs));
 
         updateSession({
           history: [...updatedHistory, botResponse.current_response],

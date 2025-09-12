@@ -20,7 +20,7 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
       };
     }
   })(),
-  
+
   saveToStorage: (data: SessionData) => {
     sessionStorage.setItem("session", JSON.stringify(data));
     set({ sessionData: data });
