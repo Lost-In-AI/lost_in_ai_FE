@@ -5,39 +5,17 @@ import useHandleUserMessage from "../../hooks/useHandleUserMessage";
 export default function Input() {
   const [message, setMessage] = useState<string | null>(null);
   const { handleUserMessage } = useHandleUserMessage();
-
-  /*
-  - usando il timeoutRef solo l ultimo messaggio dell utente riceve risposta (es: se l utente manda 3 messaggi di seguito senza aspettare la risposta del bot)
-  - dobbiamo cambiare approccio e fare una coda sequenziale in modo che ogni messaggio riceva una risposta, ma in ordine
-  */
   async function handleSubmit(e: React.FormEvent | React.KeyboardEvent) {
     e.preventDefault();
     if (message?.trim()) {
       const trimmedMessage = message.trim();
-      setMessage(""); // reset message
+      setMessage("");
       const newMessage = {
         sender: Sender.USER,
         text: trimmedMessage,
         timestamp: new Date().toISOString(),
       };
-
       await handleUserMessage(newMessage);
-      // setStatus("pending");
-      // if (timeoutRef.current) {
-      //   clearTimeout(timeoutRef.current);
-      // }
-      // timeoutRef.current = setTimeout(() => {
-      //   const responseBE = {
-      //     sender: Sender.BOT,
-      //     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo saepe harum delectus quis quaerat maiores ab ea similique tempore sunt, soluta vel incidunt eveniet, nemo rerum assumenda iure expedita blanditiis.",
-      //     timestamp: new Date().toISOString(),
-      //   };
-      //   setStatus("idle");
-      //   updateSession({
-      //     history: [...updatedHistory, responseBE],
-      //   });
-      //   timeoutRef.current = null; // Reset del ref
-      // }, randomDurationSec() * 1000); // random tra 5 e 10
     }
   }
 

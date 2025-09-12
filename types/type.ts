@@ -12,7 +12,7 @@ export interface ExampleBtn {
 }
 
 export const Endpoint = {
-  SEND_MESSAGE: import.meta.env.VITE_BE_BASE_URL as string,
+  SEND_MESSAGE: import.meta.env.VITE_BE_BASE_URL as string + "/api/test/chat"
 } as const;
 
 // Tipizzazione per il mock delle API responses che simulano la chat
@@ -31,8 +31,17 @@ export interface Message {
 }
 
 export interface SessionData {
-  sessionID: string;
+  session_id: string;
   history: Message[];
-  currentMessage?: string;
+  current_message?: string;
   summary?: string;
+}
+
+export interface BackendResponse {
+  response_code: number;
+  session_id: string;
+  current_response: Message;
+  summary: string;
+  history: Message;
+  music: boolean;
 }
