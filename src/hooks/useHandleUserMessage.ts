@@ -1,13 +1,10 @@
-import { Endpoint, type Message } from "../../types/type";
+import { Endpoint, type BackendResponse, type Message } from "../../types/type";
 import { useChatStatusStore } from "../store/useChatStatusStore";
 import { useMusic } from "./useMusic";
 import bell from "../assets/audio/creepy-halloween-bell-trap-melody-247720.mp3";
 import { useSessionStore } from "../store/useSessionStore";
 import { randomDurationSec } from "../utils/utils";
 
-/**
- * Custom hook handling the user's sending process
- */
 export default function useHandleUserMessage() {
   const { play, stop } = useMusic();
   const chatStatus = useChatStatusStore();
@@ -15,45 +12,44 @@ export default function useHandleUserMessage() {
 
   async function handleUserMessage(message: Message) {
     try {
-      // Set request's state as pending
-      await play(bell, randomDurationSec());
       chatStatus.setStatus("pending");
-
-      // Add the user's message to the chat history
-      const updatedHistory = [...(sessionData.history || []), message];
+      const updatedHistory = [...(sessionData.history || []), message]; // update user message
       updateSession({
         history: updatedHistory,
       });
-
-      // Timer to make the user wait more then necessary
-      await new Promise((resolve) => setTimeout(resolve, randomDurationSec() * 1000));
-
-      // Handle fetching
-      const response = await fetch(Endpoint.SEND_MESSAGE, {
+      const request = {
+        ...sessionData,
+        current_message: message.text,
+      };
+      const res = await fetch(Endpoint.SEND_MESSAGE, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(message),
+        body: JSON.stringify(request),
       });
-
-      // 404 error handling
-      if (!response.ok) {
+      if (!res.ok) {
         throw new Error("message POST failure");
       }
+      const botResponse: BackendResponse = await res.json();
+      if (botResponse && botResponse.current_response) {
+        let totalDelayMs = 2000; // delay music default
+        if (botResponse.music) {
+          // Se BE ci manda la musica, aggiungiamo il tempo della musica al delay base
+          const musicDuration = randomDurationSec();
+          await play(bell, musicDuration);
+          totalDelayMs += musicDuration * 1000;
+        }
+        await new Promise((resolve) => setTimeout(resolve, totalDelayMs)); 
 
-      const botResponse: Message = await response.json();
-
-      // If the fetch succeeds, add the bot's response to the chat history
-      if (botResponse) {
         updateSession({
-          history: [...updatedHistory, botResponse],
+          history: [...updatedHistory, botResponse.current_response],
         });
       } else {
+        // TODO: errore lato BE, mostrare un popup/qualcosa
         console.error("Error while updating response's value", botResponse);
       }
     } catch (error) {
       console.error("Error while posting message: ", error);
     } finally {
-      // In any case, set the client as idle
       stop();
       chatStatus.setStatus("idle");
     }
