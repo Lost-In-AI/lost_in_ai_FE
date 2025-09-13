@@ -12,23 +12,34 @@ export interface ExampleBtn {
 }
 
 export const Endpoint = {
-  SEND_MESSAGE: import.meta.env.VITE_BE_BASE_URL as string + "/api/test/chat"
+  SEND_MESSAGE: (import.meta.env.VITE_BE_BASE_URL as string) + "/api/chat",
 } as const;
 
 // Tipizzazione per il mock delle API responses che simulano la chat
 
 export type ValueOf<T> = T[keyof T];
+export type KeysOf<T> = keyof T;
 
 export const Sender = {
-  BOT: "bot",
+  ASSISTANT: "assistant",
   USER: "user",
 } as const;
+
+export const replacePlaceholder = {
+  BANK_NAME: "Lost in AI",
+  CHATBOT_NAME: "Bankly",
+  // aggiungere le altre variabili
+} as const;
+
+export type Placeholders = Record<KeysOf<typeof replacePlaceholder>, string>;
 
 export interface Message {
   sender: ValueOf<typeof Sender>;
   text: string;
   timestamp?: string;
 }
+
+
 
 export interface SessionData {
   session_id: string;
@@ -40,7 +51,7 @@ export interface SessionData {
 export interface BackendResponse {
   response_code: number;
   session_id: string;
-  current_response: Message;
+  current_response: Message; // prob Message[]
   summary: string;
   history: Message;
   music: boolean;

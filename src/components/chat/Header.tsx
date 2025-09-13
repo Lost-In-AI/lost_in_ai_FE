@@ -11,10 +11,11 @@ export default function Header({ onClose }: HeaderProps) {
       <div className="absolute  size-full rounded-lg inset-0 bg-primary-700/85 -z-10 "></div>
       <div className="flex gap-2 items-center">
         <div className="w-13 h-13 rounded-lg ml-2">
-          <img src="/icons/avatar.png" alt="avatar bot" className="rounded-lg" />
+          <img src="/icons/avatar.png" alt="avatar assistant" className="rounded-lg" />
         </div>
         <div className="flex flex-col">
-          <h2 className="text-lg text-white font-semibold ">Nome</h2>
+          {/* TODO: Mettere nome dinamico se vogliamo cambiare operatore */}
+          <h2 className="text-lg text-white font-semibold ">Bankly</h2>
           <h3 className=" text-white text-sm font-light">{loading === "idle" ? "Online" : "Sto scrivendo.."}</h3>
         </div>
       </div>
