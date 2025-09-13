@@ -1,12 +1,11 @@
-import { Endpoint, type BackendResponse, type Message } from "../../types/type";
+import { Endpoint, replacePlaceholder, type BackendResponse, type Message } from "../../types/type";
 import { useChatStatusStore } from "../store/useChatStatusStore";
 import { useMusic } from "./useMusic";
-import bell from "../assets/audio/creepy-halloween-bell-trap-melody-247720.mp3";
 import { useSessionStore } from "../store/useSessionStore";
-import { randomDurationSec } from "../utils/utils";
+import { parsePrompt } from "../utils/utils";
 
 export default function useHandleUserMessage() {
-  const { play, stop } = useMusic();
+  const { stopMusic } = useMusic();
   const chatStatus = useChatStatusStore();
   const { sessionData, updateSession } = useSessionStore();
 
@@ -29,28 +28,30 @@ export default function useHandleUserMessage() {
       if (!res.ok) {
         throw new Error("message POST failure");
       }
-      const botResponse: BackendResponse = await res.json();
-      if (botResponse && botResponse.current_response) {
-        let totalDelayMs = 2000; // delay music default
-        if (botResponse.music) {
-          // Se BE ci manda la musica, aggiungiamo il tempo della musica al delay base
-          const musicDuration = randomDurationSec();
-          await play(bell, musicDuration);
-          totalDelayMs += musicDuration * 1000;
-        }
-        await new Promise((resolve) => setTimeout(resolve, totalDelayMs));
+      const assistantResponse: BackendResponse = await res.json();
+      if (assistantResponse && assistantResponse.current_response) {
+        console.log("assistantResponse", assistantResponse);
+        // if (!assistantResponse.music) {
+        // await playMusic();
+        // await new Promise((resolve) => setTimeout(resolve, 2000));
+        // }
+
+        const parsedResponse = {
+          ...assistantResponse.current_response,
+          text: parsePrompt(assistantResponse.current_response.text, replacePlaceholder),
+        };
 
         updateSession({
-          history: [...updatedHistory, botResponse.current_response],
+          history: [...updatedHistory, parsedResponse],
         });
       } else {
         // TODO: errore lato BE, mostrare un popup/qualcosa
-        console.error("Error while updating response's value", botResponse);
+        console.error("Error while updating response's value", assistantResponse);
       }
     } catch (error) {
       console.error("Error while posting message: ", error);
     } finally {
-      stop();
+      stopMusic();
       chatStatus.setStatus("idle");
     }
   }

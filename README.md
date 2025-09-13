@@ -1,69 +1,100 @@
-# React + TypeScript + Vite
+# Lost in AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Lost in AI simulates a phone customer service experience with the most frustrating elements: hold music, continuous transfers, and AI operators (via OpenAI) that never seem to understand the problem. All designed to be technically brilliant but deliberately useless, demonstrating skills in conversational AI, development, deploy and UX design.
 
-Currently, two official plugins are available:
+ While all chatbots try to be helpful, ours must be memorably useless but in a sophisticated and entertaining way.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## Expanding the ESLint configuration
+- **React 19** - Modern React with latest features
+- **TypeScript** - Type-safe JavaScript
+- **Vite** - Fast build tool and development server
+- **Tailwind CSS v4** - Utility-first CSS framework
+- **Zustand** - Lightweight state management
+- **React Router DOM v7** - Client-side routing
+- **ESLint + Prettier + Husky** - Code quality, formatting and pre-commit hooks
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default tseslint.config([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+### Installation
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+1. Clone the repository:
+```bash
+git clone https://github.com/Lost-In-AI/lost_in_ai_FE
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default tseslint.config([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+2. Navigate to the project directory:
+```bash
+cd lost_in_ai_FE
 ```
+
+3. Install dependencies:
+```bash
+npm install
+```
+
+4. Start the development server:
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+### Available Scripts
+
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint to check code quality
+- `npm run preview` - Preview production build locally
+
+## Project Structure
+
+```
+src/
+├── components/         # Reusable UI components
+│   └── button/         # Button components
+├── hooks/              # Custom React hooks
+├── pages/              # Page-level components
+├── store/              # Zustand stores for global state
+└── data/               # Mock data
+
+types/                  # Global TypeScript definitions
+```
+
+## Development
+
+This project uses:
+- **Zustand** for global state management
+- **Custom hooks** for reusable logic
+- **Centralized routing**
+- **TypeScript** with strict type checking
+
+## Team Contributions
+
+This section documents the contributions made by each team member during the development of the project.
+
+### Federico
+
+- **Figma Design**: Created the complete visual design and mockups for the application
+- **Tailwind Implementation**: Set up Tailwind CSS design structure including custom variables and configuration
+- **Global State Management**: Implemented global state management for chat status using Zustand
+- **Backend Integration**: Developed the logic for API calls and communication with the backend services
+
+### Emy
+
+- **Chatbot UI Components** (Built the complete chatbot user interface including):
+- Input component for user messages
+- Message display components
+- Loading animations and states
+- Chat wrapper and layout components
+- **Session Storage Logic**: Implemented session storage functionality for maintaining chat history and user state.
+
+### Donato
+
+- **Music Flow Management**: Developed the complete music system and audio management for the application
+- **Landing Page**: Created the UI structure and components for the landing page
+
+### Virginia
+
+- **Core Components** (Developed essential reusable components for the application including):
+- Button component with consistent styling
