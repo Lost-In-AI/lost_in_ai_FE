@@ -6,7 +6,7 @@ interface MessageProps {
 
 export default function Message({ text, isUser, timestamp }: MessageProps) {
   const userVariant = "bg-gray-100 text-primary-900 rounded-md";
-  const botVariant = "bg-primary-300/60 text-gray-800 rounded-md";
+  const assistantVariant = "bg-primary-300/60 text-gray-800 rounded-md";
   return (
     <div className={`flex items-start  gap-2 mb-4  ${isUser ? "flex-row-reverse" : ""}`} role="presentation">
       <div className={`w-14 h-14 mt-auto  flex-shrink-0 `}>
@@ -21,7 +21,7 @@ export default function Message({ text, isUser, timestamp }: MessageProps) {
       </div>
 
       <div
-        className={` max-w-md lg:max-w-md px-4 py-2 my-auto rounded-lg text-left ${isUser ? userVariant : botVariant}`}
+        className={` max-w-md lg:max-w-md px-4 py-2 my-auto rounded-lg text-left ${isUser ? userVariant : assistantVariant}`}
       >
         <p className="text-sm">{text}</p>
         {timestamp && (

@@ -2,7 +2,7 @@
   "session_id": "1234567890",
   "history": [
     {
-      "sender": "bot",
+      "sender": "assistant",
       "text": "Benvenuto all'assistenza di Lost in AI. Resti in linea, il suo tempo di attesa stimato è di 1 ora.",
       "timestamp": "2025-09-05T15:00:00Z"
     },
@@ -12,7 +12,7 @@
       "timestamp": "2025-09-05T15:01:00Z"
     },
     {
-      "sender": "bot",
+      "sender": "assistant",
       "text": "L'agente umano è occupato al momento. Posso aiutarle con qualcosa di diverso?",
       "timestamp": "2025-09-05T15:02:00Z"
     },
@@ -22,7 +22,7 @@
       "timestamp": "2025-09-05T15:03:00Z"
     },
     {
-      "sender": "bot",
+      "sender": "assistant",
       "text": "Il sistema sta riscontrando un problema. Si prega di riprovare più tardi.",
       "timestamp": "2025-09-05T15:04:00Z"
     }
