@@ -14,7 +14,7 @@ export default function Header({ onClose }: HeaderProps) {
           <img src="/icons/avatar.png" alt="avatar assistant" className="rounded-lg" />
         </div>
         <div className="flex flex-col">
-           {/* TODO: Mettere nome dinamico se vogliamo cambiare operatore */}
+          {/* TODO: Mettere nome dinamico se vogliamo cambiare operatore */}
           <h2 className="text-lg text-white font-semibold ">Bankly</h2>
           <h3 className=" text-white text-sm font-light">{loading === "idle" ? "Online" : "Sto scrivendo.."}</h3>
         </div>

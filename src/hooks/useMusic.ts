@@ -1,4 +1,3 @@
-
 type AudioContextConstructor = new (contextOptions?: AudioContextOptions) => AudioContext;
 interface GlobalWithAudioContext {
   AudioContext?: AudioContextConstructor;
@@ -8,8 +7,7 @@ interface GlobalWithAudioContext {
 export function useMusic() {
   let audioContext: AudioContext | null = null;
   let audioSource: AudioBufferSourceNode | null = null;
-  let gainNode: GainNode | null = null; 
-
+  let gainNode: GainNode | null = null;
 
   function initAudioContext() {
     if (!audioContext) {
@@ -42,7 +40,7 @@ export function useMusic() {
       const arrayBuffer = await response.arrayBuffer();
       // Create a copy of the buffer before attempting decode to avoid detachment issues
       const bufferCopy = arrayBuffer.slice(0);
-      
+
       // Try to decode audio data with error handling
       let audioBuffer: AudioBuffer;
       try {
@@ -57,7 +55,7 @@ export function useMusic() {
       source.loop = true;
       gainNode = context.createGain();
       gainNode.gain.value = 0.3; // Volume al 30%
-      
+
       // Collega: source -> gainNode -> destination
       source.connect(gainNode);
       gainNode.connect(context.destination);

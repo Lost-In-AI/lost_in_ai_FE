@@ -28,8 +28,9 @@ export function parsePrompt(prompt: string, placeHolders: Placeholders) {
   const matches = prompt.match(/{{(.*?)}}/g); // trova tutti i placeholder in caps dentro "{{...}}"
   if (!matches) return prompt;
   let result = prompt;
-  for (const match of matches) { // per ogni match
-    const key = match.slice(2, -2).trim()  // tolgo le parentesi
+  for (const match of matches) {
+    // per ogni match
+    const key = match.slice(2, -2).trim(); // tolgo le parentesi
     if (key in placeHolders) {
       const replacement = placeHolders[key as keyof Placeholders];
       result = result.replace(match, replacement);
