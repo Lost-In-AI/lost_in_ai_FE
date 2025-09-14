@@ -4,7 +4,6 @@ import send from "../../assets/send.png";
 import personality from "../../assets/personality.png";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-
   text?: string;
   onClick?: () => void;
   variant: "primary" | "secondary" | "personality" | "close";
@@ -42,15 +41,22 @@ function getVariantIcon(variant: "primary" | "secondary" | "personality" | "clos
   }
 }
 
-
-export default function Button({text, onClick, variant, disabled = false, className, children, ...props}: ButtonProps) {
+export default function Button({
+  text,
+  onClick,
+  variant,
+  disabled = false,
+  className,
+  children,
+  ...props
+}: ButtonProps) {
   return (
     <button
-      type = "submit"
+      type="submit"
       className={`${variants[variant]} ${disabled ? "opacity-50 cursor-not-allowed" : "hover:brightness-90"} ${className ?? ""}}`}
       onClick={onClick}
       disabled={disabled}
-       {...props}
+      {...props}
     >
       {getVariantIcon(variant)}
       {text}
