@@ -22,7 +22,7 @@ export default function Header({ onClose }: HeaderProps) {
       </div>
 
       <div className="mr-1 flex">
-        < Button
+        <Button
           tabIndex={0}
           variant="personality"
           className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-white h-10 hover:brightness-90 hover:opacity-70 mr-4 text-end"

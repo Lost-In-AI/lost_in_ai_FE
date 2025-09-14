@@ -10,7 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   className?: string;
   children?: React.ReactNode;
-  iconClassName?: string
+  iconClassName?: string;
 }
 
 /*  
@@ -33,7 +33,7 @@ function getVariantIcon(variant: "primary" | "secondary" | "personality" | "clos
       return <img src={botImage} alt="bot icon" className={`rounded-full ${iconClassName ?? ""}`} />;
     case "secondary":
       return <img src={send} alt="send button" className={iconClassName} />;
-      case "personality":
+    case "personality":
       return <img src={personality} alt="personality button" className={iconClassName} />;
     case "close":
       return <img src={close} alt="close icon" className={iconClassName} />;
