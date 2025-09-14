@@ -1,13 +1,20 @@
-import { Endpoint, replacePlaceholder, type BackendResponse, type Message } from "../../types/type";
+import { BreakResponse, Endpoint, replacePlaceholder, type BackendResponse, type Message } from "../../types/type";
 import { useChatStatusStore } from "../store/useChatStatusStore";
 import { useMusic } from "./useMusic";
 import { useSessionStore } from "../store/useSessionStore";
 import { parsePrompt } from "../utils/utils";
 
 export default function useHandleUserMessage() {
-  const { stopMusic } = useMusic();
+  const { playMusic, stopMusic } = useMusic();
   const chatStatus = useChatStatusStore();
   const { sessionData, updateSession } = useSessionStore();
+
+  function parseResponse(responses: Array<Message>, index: number) {
+    return {
+      ...responses[index],
+      text: parsePrompt(responses[index].text, replacePlaceholder),
+    };
+  }
 
   async function handleUserMessage(message: Message) {
     try {
@@ -29,21 +36,26 @@ export default function useHandleUserMessage() {
         throw new Error("message POST failure");
       }
       const assistantResponse: BackendResponse = await res.json();
-      if (assistantResponse && assistantResponse.current_response) {
-        console.log("assistantResponse", assistantResponse);
-        // if (!assistantResponse.music) {
-        // await playMusic();
-        // await new Promise((resolve) => setTimeout(resolve, 2000));
-        // }
-
-        const parsedResponse = {
-          ...assistantResponse.current_response,
-          text: parsePrompt(assistantResponse.current_response.text, replacePlaceholder),
-        };
-
+      if (assistantResponse && assistantResponse.current_responses) {
         updateSession({
-          history: [...updatedHistory, parsedResponse],
+          history: [...updatedHistory, parseResponse(assistantResponse.current_responses, 0)],
         });
+        chatStatus.setStatus("idle");
+
+        if (assistantResponse.current_responses.length > 1) {
+          for (let i = 1; i < assistantResponse.current_responses.length; i++) {
+            chatStatus.setStatus("pending");
+            if (assistantResponse.break_response === BreakResponse.MUSIC) {
+              await playMusic();
+            } else {
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
+            chatStatus.setStatus("idle");
+            updateSession({
+              history: [...updatedHistory, parseResponse(assistantResponse.current_responses, i)],
+            });
+          }
+        }
       } else {
         // TODO: errore lato BE, mostrare un popup/qualcosa
         console.error("Error while updating response's value", assistantResponse);
