@@ -1,4 +1,5 @@
 import { useChatStatusStore } from "../../store/useChatStatusStore";
+import Button from "../button/Button";
 
 interface HeaderProps {
   onClose: () => void;
@@ -21,20 +22,21 @@ export default function Header({ onClose }: HeaderProps) {
       </div>
 
       <div className="mr-1 flex">
-        {/* TODO: cambiare i bottoni */}
-        <button
+      <Button
           tabIndex={0}
-          className="w-10 h-10 text-end cursor-pointer hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-white rounded-lg"
+          variant="personality"
+          className="w-10 h-10 mr-1 text-end cursor-pointer hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-white rounded-lg"
+          disabled = {false}
         >
-          <img src="/icons/btn-personality.png" alt="Personality Button" className="w-10 h-10" />
-        </button>
-        <button
+        </Button> 
+       <Button
+          tabIndex={0}
           onClick={onClose}
-          tabIndex={0}
-          className="w-10 h-10 text-end cursor-pointer hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-white rounded-lg"
+          variant="close"
+          className=" w-10 h-10 mr-1 text-end cursor-pointer hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-white rounded-lg"
+          disabled = {false}
         >
-          <img src="/icons/close.png" alt="Close Button" className="w-10 h-10" />
-        </button>
+        </Button> 
       </div>
     </section>
   );
