@@ -34,7 +34,7 @@ export default function Input() {
         disabled={!message?.trim()}
         variant="secondary"
         className="bg-primary-300 text-white rounded-lg hover:bg-primary-700/40 disabled:bg-gray-300 disabled:cursor-not-allowed w-13 h-13 cursor-pointer"
-      ></Button>
+      />
     </form>
   );
 }

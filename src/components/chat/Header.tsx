@@ -22,19 +22,17 @@ export default function Header({ onClose }: HeaderProps) {
       </div>
 
       <div className="mr-1 flex">
-        <Button
+        < Button
           tabIndex={0}
           variant="personality"
-          className="w-10 h-10 mr-1 text-end cursor-pointer hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-white rounded-lg"
-          disabled={false}
-        ></Button>
+          className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-white h-10 hover:brightness-90 hover:opacity-70 mr-4 text-end"
+        />
         <Button
           tabIndex={0}
           onClick={onClose}
           variant="close"
-          className=" w-10 h-10 mr-1 text-end cursor-pointer hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-white rounded-lg"
-          disabled={false}
-        ></Button>
+          className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-white h-10 hover:brightness-90 hover:opacity-70 mr-4 text-end"
+        />
       </div>
     </section>
   );
