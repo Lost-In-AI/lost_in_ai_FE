@@ -24,6 +24,7 @@ export default function Home() {
               key={index}
               text={message.text}
               isUser={message.sender === Sender.USER}
+              animate={index === sessionData?.history.length - 1}
               timestamp={formatTimestap(message.timestamp)}
             />
           ))}
