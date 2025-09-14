@@ -1,13 +1,58 @@
-// l interface dei componenti meglio tenerla nel file del componente stesso
+import botImage from "../../assets/bot_icon.png";
+import close from "../../assets/close.png";
+import send from "../../assets/send.png";
+import personality from "../../assets/personality.png";
+
+type ButtonVariants = "primary" | "secondary" | "personality" | "close";
 interface ButtonProps {
-  handleClick: () => void;
-  text: string;
-  className?: string; // opzionale
+  text?: string;
+  onClick?: () => void;
+  variant: ButtonVariants;
+  disabled?: boolean;
+  className?: string;
+  iconClassName?: string;
+  tabIndex: number;
 }
 
-export default function Button({ handleClick, text, className }: ButtonProps) {
+export default function Button({
+  text,
+  onClick,
+  variant,
+  disabled = false,
+  className,
+  iconClassName,
+  tabIndex,
+}: ButtonProps) {
+  const variants = {
+    primary: "absolute bottom-4 right-4 md:absolute md:bottom-4 md:right-4 pointer-events-auto",
+    secondary: "rounded-lg flex items-center justify-center w-13 h-13 ",
+    personality: "rounded-full flex items-center justify-center h-10 w-10",
+    close: "rounded-lg flex items-center justify-center w-10 h-10",
+  };
+
+  function getVariantIcon(variant: ButtonVariants, iconClassName?: string) {
+    switch (variant) {
+      case "primary":
+        return <img src={botImage} alt="bot icon" className={`rounded-md shadow-lg ${iconClassName}`} />;
+      case "secondary":
+        return <img src={send} alt="send button" className={iconClassName} />;
+      case "personality":
+        return <img src={personality} alt="personality button" className={iconClassName} />;
+      case "close":
+        return <img src={close} alt="close icon" className={iconClassName} />;
+      default:
+        return null;
+    }
+  }
   return (
-    <button className={`px-4 py-2 ${className} text-white rounded`} onClick={() => handleClick()}>
+    <button
+      type="submit"
+      tabIndex={tabIndex}
+      className={`${variants[variant]} ${disabled ? "opacity-50 cursor-not-allowed" : "hover:brightness-90 cursor-pointer"} ${className} }`}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {getVariantIcon(variant, iconClassName)}
       {text}
     </button>
   );

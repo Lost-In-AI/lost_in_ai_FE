@@ -4,6 +4,7 @@ import { useSessionStore } from "../../store/useSessionStore";
 import { useChatStatusStore } from "../../store/useChatStatusStore";
 import Input from "./Input";
 import MessageLoading from "./MessageLoading";
+import Button from "../button/Button";
 
 interface ChatWrapperProps {
   children?: ReactNode;
@@ -40,13 +41,7 @@ export default function ChatWrapper({ children }: ChatWrapperProps) {
           <Input />
         </div>
       )}
-      {/* TODO: mettere il botton vero */}
-      <button
-        className="bg-primary-700 absolute bottom-4 text-white right-4 md:bottom-4 md:right-5 px-4 w-16 h-16 rounded-lg pointer-events-auto "
-        onClick={() => setIsVisible(!isVisible)}
-      >
-        {isVisible ? "Close" : "Open"}
-      </button>
+      <Button tabIndex={1} variant={"primary"} onClick={() => setIsVisible(!isVisible)} iconClassName="max-w-[68px]" />
     </section>
   );
 }
