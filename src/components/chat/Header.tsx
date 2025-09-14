@@ -25,13 +25,13 @@ export default function Header({ onClose }: HeaderProps) {
         <Button
           tabIndex={0}
           variant="personality"
-          className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-white h-10 hover:brightness-90 hover:opacity-70 mr-4 text-end"
+          className="focus:outline-none focus:ring-2 focus:ring-white h-10 hover:brightness-90 hover:opacity-70 mr-4 text-end"
         />
         <Button
           tabIndex={0}
           onClick={onClose}
           variant="close"
-          className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-white h-10 hover:brightness-90 hover:opacity-70 mr-4 text-end"
+          className="focus:outline-none focus:ring-2 focus:ring-white h-10 hover:brightness-90 hover:opacity-70 mr-4 text-end"
         />
       </div>
     </section>

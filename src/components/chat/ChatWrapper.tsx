@@ -42,9 +42,10 @@ export default function ChatWrapper({ children }: ChatWrapperProps) {
         </div>
       )}
       <Button
-        variant={isVisible ? "close" : "primary"}
-        className="absolute bottom-4 right-4 md:bottom-4 md:right-5 px-4 w-30 h-30 pointer-events-auto z-50"
+        tabIndex={1}
+        variant={"primary"}
         onClick={() => setIsVisible(!isVisible)}
+        iconClassName="max-w-[68px]"
       />
     </section>
   );

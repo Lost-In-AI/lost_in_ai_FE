@@ -30,10 +30,10 @@ export default function Input() {
         className="flex-1 px-3 py-2 bg-primary-100/50 text-primary-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700/50 disabled:bg-gray-100"
       />
       <Button
-        type="submit"
         disabled={!message?.trim()}
         variant="secondary"
         className="bg-primary-300 text-white rounded-lg hover:bg-primary-700/40 disabled:bg-gray-300 disabled:cursor-not-allowed w-13 h-13 cursor-pointer"
+        tabIndex={0}
       />
     </form>
   );
