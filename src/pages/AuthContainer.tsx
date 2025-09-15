@@ -14,11 +14,7 @@ export default function AuthContainer({ isLogin }: AuthContainerProps) {
       <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
-            <img
-              className="h-10 w-auto"
-              src="/logo.png"
-              alt="Lost in AI"
-            />
+            <img className="h-10 w-auto" src="/logo.png" alt="Lost in AI" />
             <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-white">
               {isLogin ? "Accedi alla tua area riservata" : "Registrati"}
             </h2>

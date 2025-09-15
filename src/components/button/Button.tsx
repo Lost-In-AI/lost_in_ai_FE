@@ -3,7 +3,7 @@ import close from "../../assets/close.png";
 import send from "../../assets/send.png";
 import personality from "../../assets/personality.png";
 
-type ButtonVariants = "primary" | "secondary" | "personality" | "close" | "submit"
+type ButtonVariants = "primary" | "secondary" | "personality" | "close" | "submit";
 interface ButtonProps {
   text?: string;
   onClick?: () => void;
@@ -28,7 +28,8 @@ export default function Button({
     secondary: "rounded-lg flex items-center justify-center w-13 h-13 ",
     personality: "rounded-full flex items-center justify-center h-10 w-10",
     close: "rounded-lg flex items-center justify-center w-10 h-10",
-    submit: "flex w-full text-white justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm hover:bg-indigo-500 focus-visible:outline  focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+    submit:
+      "flex w-full text-white justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm hover:bg-indigo-500 focus-visible:outline  focus-visible:outline-offset-2 focus-visible:outline-indigo-600",
   };
 
   function getVariantIcon(variant: ButtonVariants, iconClassName?: string) {
