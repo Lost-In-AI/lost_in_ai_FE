@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap");
 @import "tailwindcss";
 
 /**
@@ -33,6 +34,9 @@
   --color-border: var(--color-primary-200);
   --color-disabled: var(--color-secondary-100);
   --color-error: oklch(54.53% 0.222 27.05);
+
+  /* Font family setup */
+  --font-family-serif: "DM Serif Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 html,
@@ -46,8 +50,10 @@ body,
 }
 
 body {
-  background-color: darkgray;
+  background-color: white;
   color: var(--color-base-text);
   margin: 0;
   overflow-x: hidden;
+  min-height: 100vh;
+  font-family: ui-sans-serif, system-ui, sans-serif;
 }
