@@ -29,7 +29,7 @@ export default function MainSection() {
 
           {/* Colonna immagine sulla destra */}
           <div className="lg:col-span-2 flex justify-center">
-            <div className="max-w-sm">
+            <div className="w-full">
               <img
                 src="/images/cartoon-characters.png"
                 alt="Personaggi cartoon che rappresentano la nostra banca"
