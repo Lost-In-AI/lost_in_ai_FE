@@ -9,13 +9,12 @@ import Banner from "../components/Banner";
 import MainSection from "../components/MainSection";
 import ErrorPopup from "../components/alerts/errorPopUp";
 
-
 export default function Home() {
   const { sessionData } = useSessionStore();
 
   return (
     <>
-    <ErrorPopup message="Siamo spiacenti si è verificato un errore" />
+      <ErrorPopup message="Siamo spiacenti si è verificato un errore" />
       <Navbar />
       <Banner />
       <MainSection />

@@ -18,7 +18,7 @@ export default function ErrorPopup({ message, position = "top-right", className 
     "bottom-right": "bottom-4 right-4",
   };
 
-  useEffect(() => {;
+  useEffect(() => {
     if (message) {
       setError(message);
       const timer = setTimeout(() => setError(null), 5000);
@@ -40,15 +40,11 @@ export default function ErrorPopup({ message, position = "top-right", className 
         >
           <div className="flex items-start space-x-3">
             <div className="flex-shrink-0">
-              <img src="/icons/close.png"  alt="error" className="bg-red-500/80 rounded-full w-7 h-7 " />
+              <img src="/icons/close.png" alt="error" className="bg-red-500/80 rounded-full w-7 h-7 " />
             </div>
             <div className="flex-1">
-              <h3 className="text-base font-semibold text-black">
-                Oops! Si è verificato un errore
-              </h3>
-              <p className="mt-1 text-sm text-gray-600">
-                {error}
-              </p>
+              <h3 className="text-base font-semibold text-black">Oops! Si è verificato un errore</h3>
+              <p className="mt-1 text-sm text-gray-600">{error}</p>
             </div>
           </div>
         </div>
