@@ -1,13 +1,15 @@
-import { BreakResponse, Endpoint, replacePlaceholder, type BackendResponse, type Message } from "../../types/type";
+import { BreakReason, Endpoint, replacePlaceholder, type BackendResponse, type Message } from "../../types/type";
 import { useChatStatusStore } from "../store/useChatStatusStore";
 import { useMusic } from "./useMusic";
 import { useSessionStore } from "../store/useSessionStore";
-import { parsePrompt } from "../utils/utils";
+import { parsePrompt, randomDurationMs } from "../utils/utils";
 
 export default function useHandleUserMessage() {
-  const { playMusic, stopMusic } = useMusic();
   const chatStatus = useChatStatusStore();
-  const { sessionData, updateSession, setShouldAnimateLastMessage } = useSessionStore();
+
+  const { sessionData, updateSession } = useSessionStore(); // aggiungere animate
+  const { playMusic, stopMusic } = useMusic();
+
 
   function parseResponse(responses: Array<Message>, index: number) {
     if (!responses[index]) {
@@ -22,7 +24,7 @@ export default function useHandleUserMessage() {
   async function handleUserMessage(message: Message) {
     try {
       chatStatus.setStatus("pending");
-      const updatedHistory = [...(sessionData.history || []), message]; // update user message
+      let updatedHistory = [...(sessionData.history || []), message]; // update user message
       updateSession({
         history: updatedHistory,
       });
@@ -40,21 +42,26 @@ export default function useHandleUserMessage() {
       }
       const assistantResponse: BackendResponse = await res.json();
       if (assistantResponse && assistantResponse.current_responses) {
+        updatedHistory = [...updatedHistory, parseResponse(assistantResponse.current_responses, 0)];
         updateSession({
-          history: [...updatedHistory, parseResponse(assistantResponse.current_responses, 0)],
+          history: updatedHistory,
         });
         chatStatus.setStatus("idle");
 
         if (assistantResponse.current_responses.length > 1) {
           for (let i = 1; i < assistantResponse.current_responses.length; i++) {
             chatStatus.setStatus("pending");
-            if (assistantResponse.break_response === BreakResponse.MUSIC) {
-              await playMusic();
+            if (assistantResponse.break_reason === BreakReason.MUSIC) {
+              await new Promise((resolve) => {
+                playMusic();
+                setTimeout(resolve, randomDurationMs());
+              });
             } else {
               await new Promise((resolve) => setTimeout(resolve, 1000));
             }
+            updatedHistory = [...updatedHistory, parseResponse(assistantResponse.current_responses, i)];
             updateSession({
-              history: [...updatedHistory, parseResponse(assistantResponse.current_responses, i)],
+              history: updatedHistory,
             });
             chatStatus.setStatus("idle");
           }

@@ -47,7 +47,7 @@ export interface SessionData {
   summary?: string;
 }
 
-export const BreakResponse = {
+export const BreakReason = {
   MUSIC: "music",
 } as const;
 
@@ -60,8 +60,8 @@ export interface BackendResponse {
   session_id: string;
   current_responses: Array<Message>;
   summary: string;
-  history: Message;
-  break_response: (typeof BreakResponse)[keyof typeof BreakResponse];
+  history: Array<Message>;
+  break_reason: (typeof BreakReason)[keyof typeof BreakReason];
   bot_personality?: (typeof BotPersonalities)[keyof typeof BotPersonalities];
 }
 
