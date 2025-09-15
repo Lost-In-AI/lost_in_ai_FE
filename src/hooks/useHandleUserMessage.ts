@@ -10,6 +10,9 @@ export default function useHandleUserMessage() {
   const { sessionData, updateSession } = useSessionStore();
 
   function parseResponse(responses: Array<Message>, index: number) {
+    if (!responses[index]) {
+      console.error(`No data found in ${responses}[${index}]`);
+    }
     return {
       ...responses[index],
       text: parsePrompt(responses[index].text, replacePlaceholder),
@@ -50,10 +53,10 @@ export default function useHandleUserMessage() {
             } else {
               await new Promise((resolve) => setTimeout(resolve, 1000));
             }
-            chatStatus.setStatus("idle");
             updateSession({
               history: [...updatedHistory, parseResponse(assistantResponse.current_responses, i)],
             });
+            chatStatus.setStatus("idle");
           }
         }
       } else {
