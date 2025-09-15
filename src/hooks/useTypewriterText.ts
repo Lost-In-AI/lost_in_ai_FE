@@ -15,9 +15,8 @@ export default function useTypewriterText({ text, delay, onComplete }: UseTypewr
       const timeout = setTimeout(() => {
         setCurrentText((prev) => prev + text[currentIndex]);
         setCurrentIndex((prev) => prev + 1);
-
-        return () => clearTimeout(timeout);
       }, delay);
+      return () => clearTimeout(timeout);
     } else if (currentIndex === text.length && onComplete) {
       onComplete();
     }
