@@ -27,7 +27,11 @@ export function useResponseProcessor() {
         chatStatus.setStatus("pending");
         await handleDelayedExecution(response.break_reason);
         updateSession({
-          history: [...(sessionData.history || []), parseResponse(response.current_responses, 0), parseResponse(response.current_responses, i)],
+          history: [
+            ...(sessionData.history || []),
+            parseResponse(response.current_responses, 0),
+            parseResponse(response.current_responses, i),
+          ],
         });
       }
     }
