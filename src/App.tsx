@@ -14,7 +14,7 @@ export default function App() {
   return (
     <BrowserRouter>
       {/* Layout principale */}
-      <div className="min-h-screen bg-base-background">
+      <div className="min-h-screen bg-white">
         {/* Main content area */}
         <main className="relative">
           <Routes>

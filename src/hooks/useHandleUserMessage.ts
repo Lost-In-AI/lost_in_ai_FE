@@ -29,7 +29,7 @@ export default function useHandleUserMessage() {
         throw new Error("message POST failure");
       }
       const assistantResponse: BackendResponse = await res.json();
-      if (assistantResponse && assistantResponse.current_response) {
+      if (assistantResponse && assistantResponse.current_responses && assistantResponse.current_responses.length > 0) {
         console.log("assistantResponse", assistantResponse);
         // if (!assistantResponse.music) {
         // await playMusic();
@@ -37,8 +37,8 @@ export default function useHandleUserMessage() {
         // }
 
         const parsedResponse = {
-          ...assistantResponse.current_response,
-          text: parsePrompt(assistantResponse.current_response.text, replacePlaceholder),
+          ...assistantResponse.current_responses[0], // Prendi il primo messaggio dalla lista
+          text: parsePrompt(assistantResponse.current_responses[0].text, replacePlaceholder),
         };
 
         updateSession({

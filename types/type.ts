@@ -39,8 +39,6 @@ export interface Message {
   timestamp?: string;
 }
 
-
-
 export interface SessionData {
   session_id: string;
   history: Message[];
@@ -51,8 +49,8 @@ export interface SessionData {
 export interface BackendResponse {
   response_code: number;
   session_id: string;
-  current_response: Message; // prob Message[]
+  current_response: Message[]; // prob Message[]
   summary: string;
-  history: Message;
+  history: Message[];
   music: boolean;
 }
