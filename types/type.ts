@@ -56,3 +56,9 @@ export interface BackendResponse {
   history: Message;
   music: boolean;
 }
+
+
+export  interface FormData {
+  email: string | null
+  password: string | null
+}
