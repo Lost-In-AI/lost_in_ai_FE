@@ -5,8 +5,8 @@ import { parsePrompt } from "../utils/utils";
 import { useDelayHandler } from "./useDelayHandler";
 
 export function useResponseProcessor() {
-  const { sessionData, updateSession } = useSessionStore();
   const chatStatus = useChatStatusStore();
+  const { pushMessageToHistory } = useSessionStore();
   const { handleDelayedExecution } = useDelayHandler();
 
   function parseResponse(responses: Array<Message>, index: number) {
@@ -20,19 +20,13 @@ export function useResponseProcessor() {
   }
 
   async function processResponse(response: BackendResponse) {
-    updateSession({ history: [...(sessionData.history || []), parseResponse(response.current_responses, 0)] });
+    pushMessageToHistory(parseResponse(response.current_responses, 0));
 
     if (response.current_responses.length > 1) {
       for (let i = 1; i < response.current_responses.length; i++) {
         chatStatus.setStatus("pending");
         await handleDelayedExecution(response.break_reason);
-        updateSession({
-          history: [
-            ...(sessionData.history || []),
-            parseResponse(response.current_responses, 0),
-            parseResponse(response.current_responses, i),
-          ],
-        });
+        pushMessageToHistory(parseResponse(response.current_responses, i));
       }
     }
   }
