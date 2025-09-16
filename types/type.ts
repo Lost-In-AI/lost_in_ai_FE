@@ -2,7 +2,8 @@
 
 export interface NavigationType {
   path: string;
-  element: React.ReactNode;
+  element: React.ReactElement;
+  name: string;
 }
 
 export interface ExampleBtn {
