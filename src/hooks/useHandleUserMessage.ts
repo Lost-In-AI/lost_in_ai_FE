@@ -1,49 +1,21 @@
-import { Endpoint, replacePlaceholder, type BackendResponse, type Message } from "../../types/type";
+import { type Message } from "../../types/type";
 import { useChatStatusStore } from "../store/useChatStatusStore";
-import { useMusic } from "./useMusic";
-import { useSessionStore } from "../store/useSessionStore";
-import { parsePrompt } from "../utils/utils";
+import { useApiCall } from "./useApiCall";
+import { useDelayHandler } from "./useDelayHandler";
+import { useResponseProcessor } from "./useResponseProcessor";
 
 export default function useHandleUserMessage() {
-  const { stopMusic } = useMusic();
   const chatStatus = useChatStatusStore();
-  const { sessionData, updateSession } = useSessionStore();
+  const { delayCleanup } = useDelayHandler();
+  const { sendMessage } = useApiCall();
+  const { processResponse } = useResponseProcessor();
 
   async function handleUserMessage(message: Message) {
     try {
       chatStatus.setStatus("pending");
-      const updatedHistory = [...(sessionData.history || []), message]; // update user message
-      updateSession({
-        history: updatedHistory,
-      });
-      const request = {
-        ...sessionData,
-        current_message: message.text,
-      };
-      const res = await fetch(Endpoint.SEND_MESSAGE, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(request),
-      });
-      if (!res.ok) {
-        throw new Error("message POST failure");
-      }
-      const assistantResponse: BackendResponse = await res.json();
-      if (assistantResponse && assistantResponse.current_response) {
-        console.log("assistantResponse", assistantResponse);
-        // if (!assistantResponse.music) {
-        // await playMusic();
-        // await new Promise((resolve) => setTimeout(resolve, 2000));
-        // }
-
-        const parsedResponse = {
-          ...assistantResponse.current_response,
-          text: parsePrompt(assistantResponse.current_response.text, replacePlaceholder),
-        };
-
-        updateSession({
-          history: [...updatedHistory, parsedResponse],
-        });
+      const assistantResponse = await sendMessage(message);
+      if (assistantResponse && assistantResponse.current_responses) {
+        await processResponse(assistantResponse);
       } else {
         // TODO: errore lato BE, mostrare un popup/qualcosa
         console.error("Error while updating response's value", assistantResponse);
@@ -51,7 +23,7 @@ export default function useHandleUserMessage() {
     } catch (error) {
       console.error("Error while posting message: ", error);
     } finally {
-      stopMusic();
+      delayCleanup();
       chatStatus.setStatus("idle");
     }
   }
