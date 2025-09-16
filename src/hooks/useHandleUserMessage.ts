@@ -1,8 +1,7 @@
-import { Endpoint, replacePlaceholder, type BackendResponse, type Message } from "../../types/type";
+import { Endpoint, type BackendResponse, type Message } from "../../types/type";
 import { useChatStatusStore } from "../store/useChatStatusStore";
 import { useMusic } from "./useMusic";
 import { useSessionStore } from "../store/useSessionStore";
-import { parsePrompt } from "../utils/utils";
 
 export default function useHandleUserMessage() {
   const { stopMusic } = useMusic();
@@ -29,21 +28,22 @@ export default function useHandleUserMessage() {
         throw new Error("message POST failure");
       }
       const assistantResponse: BackendResponse = await res.json();
-      if (assistantResponse && assistantResponse.current_responses && assistantResponse.current_responses.length > 0) {
+      if (assistantResponse) {
+        // && assistantResponse.current_responses && assistantResponse.current_responses.length > 0
         console.log("assistantResponse", assistantResponse);
         // if (!assistantResponse.music) {
         // await playMusic();
         // await new Promise((resolve) => setTimeout(resolve, 2000));
         // }
 
-        const parsedResponse = {
-          ...assistantResponse.current_responses[0], // Prendi il primo messaggio dalla lista
-          text: parsePrompt(assistantResponse.current_responses[0].text, replacePlaceholder),
-        };
+        // const parsedResponse = {
+        //   ...assistantResponse.current_responses[0], // Prendi il primo messaggio dalla lista
+        //   text: parsePrompt(assistantResponse.current_responses[0].text, replacePlaceholder),
+        // };
 
-        updateSession({
-          history: [...updatedHistory, parsedResponse],
-        });
+        // updateSession({
+        //   history: [...updatedHistory, parsedResponse],
+        // });
       } else {
         // TODO: errore lato BE, mostrare un popup/qualcosa
         console.error("Error while updating response's value", assistantResponse);
