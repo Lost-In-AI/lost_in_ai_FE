@@ -28,9 +28,7 @@ export default function Message({ text, isUser, timestamp, animate }: MessagePro
         )}
       </div>
 
-      <div
-        className={`w-md px-4 py-2 my-auto rounded-lg text-left ${isUser ? userVariant : assistantVariant}`}
-      >
+      <div className={`w-md px-4 py-2 my-auto rounded-lg text-left ${isUser ? userVariant : assistantVariant}`}>
         <p className="text-sm">{!isUser && animate ? animatedText : text}</p>
         {timestamp && (
           <p className={`text-xs mt-1 text-primary-900 ${isUser ? " text-left" : "text-end"}`}>{timestamp}</p>
