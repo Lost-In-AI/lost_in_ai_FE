@@ -10,7 +10,7 @@ import MainSection from "../components/MainSection";
 import ErrorPopup from "../components/alerts/errorPopUp";
 
 export default function Home() {
-  const { sessionData } = useSessionStore();
+  const { sessionData, shouldAnimateLastMessage } = useSessionStore();
 
   return (
     <>
@@ -26,6 +26,7 @@ export default function Home() {
               key={index}
               text={message.text}
               isUser={message.sender === Sender.USER}
+              animate={index === sessionData?.history.length - 1 && shouldAnimateLastMessage}
               timestamp={formatTimestap(message.timestamp)}
             />
           ))}

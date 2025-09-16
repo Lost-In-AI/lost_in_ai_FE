@@ -4,8 +4,10 @@ import { generateSessionID } from "../utils/utils";
 
 interface SessionStore {
   sessionData: SessionData;
+  shouldAnimateLastMessage: boolean;
   updateSession: (updates: Partial<SessionData>) => void;
   saveToStorage: (data: SessionData) => void;
+  setShouldAnimateLastMessage: (value: boolean) => void;
 }
 
 export const useSessionStore = create<SessionStore>((set, get) => ({
@@ -21,6 +23,8 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
     }
   })(),
 
+  shouldAnimateLastMessage: false,
+
   saveToStorage: (data: SessionData) => {
     sessionStorage.setItem("session", JSON.stringify(data));
     set({ sessionData: data });
@@ -31,4 +35,6 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
     const updated = { ...current, ...updates };
     get().saveToStorage(updated);
   },
+
+  setShouldAnimateLastMessage: (value) => set({ shouldAnimateLastMessage: value }),
 }));
