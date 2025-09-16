@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
+import { useSessionStore } from "../store/useSessionStore";
 
 interface UseTypewriterTextProps {
   text: string;
   delay?: number;
-  onComplete?: () => unknown;
+  onComplete?: () => void;
 }
 
 export default function useTypewriterText({ text, delay, onComplete }: UseTypewriterTextProps) {
+  const { setShouldAnimateLastMessage } = useSessionStore();
   const [currentText, setCurrentText] = useState<string>("");
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -18,9 +20,10 @@ export default function useTypewriterText({ text, delay, onComplete }: UseTypewr
       }, delay);
       return () => clearTimeout(timeout);
     } else if (currentIndex === text.length && onComplete) {
+      setShouldAnimateLastMessage(false);
       onComplete();
     }
-  }, [currentIndex, delay, text, onComplete]);
+  }, [currentIndex, delay, text, onComplete, setShouldAnimateLastMessage]);
 
   return currentText;
 }

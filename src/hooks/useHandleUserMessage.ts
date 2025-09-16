@@ -7,7 +7,7 @@ import { parsePrompt } from "../utils/utils";
 export default function useHandleUserMessage() {
   const { stopMusic } = useMusic();
   const chatStatus = useChatStatusStore();
-  const { sessionData, updateSession } = useSessionStore();
+  const { sessionData, updateSession, setShouldAnimateLastMessage } = useSessionStore();
 
   async function handleUserMessage(message: Message) {
     try {
@@ -29,18 +29,13 @@ export default function useHandleUserMessage() {
         throw new Error("message POST failure");
       }
       const assistantResponse: BackendResponse = await res.json();
-      if (assistantResponse && assistantResponse.current_response) {
-        console.log("assistantResponse", assistantResponse);
-        // if (!assistantResponse.music) {
-        // await playMusic();
-        // await new Promise((resolve) => setTimeout(resolve, 2000));
-        // }
-
+      if (assistantResponse && assistantResponse.current_responses) {
         const parsedResponse = {
-          ...assistantResponse.current_response,
-          text: parsePrompt(assistantResponse.current_response.text, replacePlaceholder),
+          ...assistantResponse.current_responses[0],
+          text: parsePrompt(assistantResponse.current_responses[0].text, replacePlaceholder),
         };
 
+        setShouldAnimateLastMessage(true);
         updateSession({
           history: [...updatedHistory, parsedResponse],
         });

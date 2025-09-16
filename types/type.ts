@@ -51,7 +51,7 @@ export interface SessionData {
 export interface BackendResponse {
   response_code: number;
   session_id: string;
-  current_response: Message; // prob Message[]
+  current_responses: Array<Message>; // prob Message[]
   summary: string;
   history: Message;
   music: boolean;
