@@ -9,10 +9,7 @@ export default function Banner() {
           I tuoi risparmi?
         </h1>
         <h2 className="text-white mb-2 drop-shadow-lg font-serif font-normal text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-none">
-          Con noi sono al sicuro!{" "}
-          <span className="italic line-through">
-            (forse)
-          </span>
+          Con noi sono al sicuro! <span className="italic line-through">(forse)</span>
         </h2>
       </div>
     </section>
