@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import type { Message, SessionData } from "../../types/type";
-
 import { generateSessionID } from "../utils/utils";
 
 interface SessionStore {
@@ -24,9 +23,7 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
       };
     }
   })(),
-
   shouldAnimateLastMessage: false,
-
   saveToStorage: (data: SessionData) => {
     sessionStorage.setItem("session", JSON.stringify(data));
     set({ sessionData: data });
