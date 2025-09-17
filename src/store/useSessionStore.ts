@@ -10,7 +10,6 @@ interface SessionStore {
   saveToStorage: (data: SessionData) => void;
   setShouldAnimateLastMessage: (value: boolean) => void;
   pushMessageToHistory: (message: Message) => void;
-
 }
 
 export const useSessionStore = create<SessionStore>((set, get) => ({
