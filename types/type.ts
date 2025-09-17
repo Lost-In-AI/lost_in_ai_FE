@@ -40,8 +40,6 @@ export interface Message {
   timestamp?: string;
 }
 
-
-
 export interface SessionData {
   session_id: string;
   history: Message[];
@@ -49,13 +47,22 @@ export interface SessionData {
   summary?: string;
 }
 
+export const BreakReason = {
+  MUSIC: "music",
+} as const;
+
+export const BotPersonalities = {
+  WITTY: "witty",
+} as const;
+
 export interface BackendResponse {
   response_code: number;
   session_id: string;
-  current_responses: Array<Message>; // prob Message[]
+  current_responses: Array<Message>;
   summary: string;
-  history: Message;
-  music: boolean;
+  history: Array<Message>;
+  break_reason: (typeof BreakReason)[keyof typeof BreakReason];
+  bot_personality?: (typeof BotPersonalities)[keyof typeof BotPersonalities];
 }
 
 
