@@ -9,7 +9,7 @@ export default function useHandleUserMessage() {
   const { delayCleanup } = useDelayHandler();
   const { sendMessage } = useApiCall();
   const { processResponse } = useResponseProcessor();
-  
+
   async function handleUserMessage(message: Message) {
     try {
       chatStatus.setStatus("pending");
