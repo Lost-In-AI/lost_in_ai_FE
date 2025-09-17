@@ -25,7 +25,7 @@ export const useChatStatusStore = create<ChatStatusState>((set, get) => ({
       abortController.abort();
       set({
         loading: "idle",
-        abortController: null
+        abortController: null,
       });
     }
   },
