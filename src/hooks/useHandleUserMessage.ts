@@ -10,7 +10,11 @@ export default function useHandleUserMessage() {
 
   async function handleUserMessage(message: Message) {
     try {
+      // Crea un nuovo AbortController per questa richiesta
+      const abortController = new AbortController();
       chatStatus.setStatus("pending");
+      chatStatus.setAbortController(abortController);
+
       const updatedHistory = [...(sessionData.history || []), message]; // update user message
       updateSession({
         history: updatedHistory,
@@ -19,11 +23,14 @@ export default function useHandleUserMessage() {
         ...sessionData,
         current_message: message.text,
       };
+
       const res = await fetch(Endpoint.SEND_MESSAGE, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(request),
+        signal: abortController.signal,
       });
+
       if (!res.ok) {
         throw new Error("message POST failure");
       }
@@ -49,10 +56,16 @@ export default function useHandleUserMessage() {
         console.error("Error while updating response's value", assistantResponse);
       }
     } catch (error) {
-      console.error("Error while posting message: ", error);
+      // Gestisce sia errori di rete che cancellazioni
+      if (error instanceof Error && error.name === "AbortError") {
+        console.log("Request was cancelled");
+      } else {
+        console.error("Error while posting message: ", error);
+      }
     } finally {
       stopMusic();
       chatStatus.setStatus("idle");
+      chatStatus.setAbortController(null);
     }
   }
 
