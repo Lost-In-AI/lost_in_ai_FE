@@ -1,7 +1,7 @@
 export default function MainSection() {
   return (
-    <section className="py-12 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-12 bg-white px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
           {/* Titolo e descrizione */}
           <div className="lg:col-span-3 space-y-4">
@@ -29,13 +29,11 @@ export default function MainSection() {
 
           {/* Colonna immagine sulla destra */}
           <div className="lg:col-span-2 flex justify-center">
-            <div className="w-full">
-              <img
-                src="/images/cartoon-characters.png"
-                alt="Personaggi cartoon che rappresentano la nostra banca"
-                className="w-full h-auto"
-              />
-            </div>
+            <img
+              src="/images/cartoon-characters.png"
+              alt="Personaggi cartoon che rappresentano la nostra banca"
+              className="w-full h-auto"
+            />
           </div>
         </div>
       </div>
