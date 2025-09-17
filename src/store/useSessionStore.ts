@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type { Message, SessionData } from "../../types/type";
-import type { Message, SessionData } from "../../types/type";
+
 import { generateSessionID } from "../utils/utils";
 
 interface SessionStore {
@@ -10,7 +10,7 @@ interface SessionStore {
   saveToStorage: (data: SessionData) => void;
   setShouldAnimateLastMessage: (value: boolean) => void;
   pushMessageToHistory: (message: Message) => void;
-  pushMessageToHistory: (message: Message) => void;
+
 }
 
 export const useSessionStore = create<SessionStore>((set, get) => ({
