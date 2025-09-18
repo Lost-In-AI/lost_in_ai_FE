@@ -2,7 +2,8 @@
 
 export interface NavigationType {
   path: string;
-  element: React.ReactNode;
+  element: React.ReactElement;
+  name: string;
 }
 
 export interface ExampleBtn {
@@ -62,4 +63,10 @@ export interface BackendResponse {
   history: Array<Message>;
   break_reason: (typeof BreakReason)[keyof typeof BreakReason];
   bot_personality?: (typeof BotPersonalities)[keyof typeof BotPersonalities];
+}
+
+
+export  interface FormData {
+  email: string | null
+  password: string | null
 }

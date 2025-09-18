@@ -7,6 +7,7 @@ interface SessionStore {
   updateSession: (updates: Partial<SessionData>) => void;
   saveToStorage: (data: SessionData) => void;
   pushMessageToHistory: (message: Message) => void;
+  removeLastNMessagesFromHistory: (count: number) => void;
 }
 
 export const useSessionStore = create<SessionStore>((set, get) => ({
@@ -21,21 +22,25 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
       };
     }
   })(),
-
   saveToStorage: (data: SessionData) => {
     sessionStorage.setItem("session", JSON.stringify(data));
     set({ sessionData: data });
   },
-
   updateSession: (updates: Partial<SessionData>) => {
     const current = get().sessionData;
     const updated = { ...current, ...updates };
     get().saveToStorage(updated);
   },
-
   pushMessageToHistory: (message: Message) => {
     const currentHistory = get().sessionData.history;
     const updatedHistory = [...currentHistory, message];
     get().updateSession({ history: updatedHistory });
+  },
+  removeLastNMessagesFromHistory: (count: number) => {
+    const currentHistory = get().sessionData.history;
+    if (currentHistory.length >= count && count > 0) {
+      const updatedHistory = currentHistory.slice(0, -count);
+      get().updateSession({ history: updatedHistory });
+    }
   },
 }));
