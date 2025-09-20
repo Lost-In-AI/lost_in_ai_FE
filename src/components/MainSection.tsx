@@ -5,7 +5,9 @@ export default function MainSection() {
         <div className="grid lg:grid-cols-12 gap-8 items-start">
           {/* Titolo e descrizione */}
           <div className="lg:col-span-5 space-y-4 max-w-prose">
-            <h2 className="font-serif italic text-2xl md:text-3xl font-bold text-primary-600 mb-4">L'unica banca che non ti frega</h2>
+            <h2 className="font-serif italic text-2xl md:text-3xl font-bold text-primary-600 mb-4">
+              L'unica banca che non ti frega
+            </h2>
             <div className="space-y-3 md:text-lg text-black leading-relaxed">
               <p>
                 Da oltre 3 anni nel settore bancario, siamo l'istituto di credito che mette sempre al primo posto la
