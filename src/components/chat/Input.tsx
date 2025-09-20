@@ -8,7 +8,7 @@ export default function Input() {
   const [message, setMessage] = useState<string | null>(null);
   const { handleUserMessage, cancelRequest } = useHandleUserMessage();
   const { loading } = useChatStatusStore();
-  
+
   async function handleSubmit(e: React.FormEvent | React.KeyboardEvent) {
     e.preventDefault();
     if (loading === "pending") {
@@ -40,7 +40,11 @@ export default function Input() {
       <Button
         disabled={loading === "idle" && !message?.trim()}
         variant={loading === "pending" ? "cancel" : "secondary"}
-        className={loading === "pending" ? "" : "bg-primary-300 text-white rounded-lg hover:bg-primary-700/40 disabled:bg-gray-300 disabled:cursor-not-allowed w-13 h-13 cursor-pointer"}
+        className={
+          loading === "pending"
+            ? ""
+            : "bg-primary-300 text-white rounded-lg hover:bg-primary-700/40 disabled:bg-gray-300 disabled:cursor-not-allowed w-13 h-13 cursor-pointer"
+        }
         tabIndex={0}
       />
     </form>
