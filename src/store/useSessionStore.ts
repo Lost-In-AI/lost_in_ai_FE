@@ -9,6 +9,7 @@ interface SessionStore {
   saveToStorage: (data: SessionData) => void;
   setShouldAnimateLastMessage: (value: boolean) => void;
   pushMessageToHistory: (message: Message) => void;
+  removeLastNMessagesFromHistory: (count: number) => void;
 }
 
 export const useSessionStore = create<SessionStore>((set, get) => ({
@@ -40,5 +41,12 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
     const currentHistory = get().sessionData.history;
     const updatedHistory = [...currentHistory, message];
     get().updateSession({ history: updatedHistory });
+  },
+  removeLastNMessagesFromHistory: (count: number) => {
+    const currentHistory = get().sessionData.history;
+    if (currentHistory.length >= count && count > 0) {
+      const updatedHistory = currentHistory.slice(0, -count);
+      get().updateSession({ history: updatedHistory });
+    }
   },
 }));
