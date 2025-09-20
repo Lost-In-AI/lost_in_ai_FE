@@ -50,7 +50,8 @@ export default function useHandleUserMessage() {
     }
     // Rimuovi solo i messaggi del bot che sono stati effettivamente aggiunti oltre il primo
     const botMessagesAdded = botMessagesAddedRef.current;
-    if (botMessagesAdded > 1) { // rimuovo solo i messaggi dopo il 1°
+    if (botMessagesAdded > 1) {
+      // rimuovo solo i messaggi dopo il 1°
       removeLastNMessagesFromHistory(botMessagesAdded - 1);
     }
     chatStatus.setStatus("idle"); // reset chat stauts
