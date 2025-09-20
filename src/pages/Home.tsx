@@ -3,6 +3,7 @@ import ChatWrapper from "../components/chat/ChatWrapper";
 import Message from "../components/chat/Message";
 import { formatTimestap } from "../utils/utils";
 
+import { useChatStatusStore } from "../store/useChatStatusStore";
 import { useSessionStore } from "../store/useSessionStore";
 import Navbar from "../components/Navbar";
 import Banner from "../components/Banner";
@@ -10,7 +11,8 @@ import MainSection from "../components/MainSection";
 import ErrorPopup from "../components/alerts/errorPopUp";
 
 export default function Home() {
-  const { sessionData, shouldAnimateLastMessage } = useSessionStore();
+  const { sessionData } = useSessionStore();
+  const { shouldAnimateLastMessage } = useChatStatusStore();
 
   return (
     <>

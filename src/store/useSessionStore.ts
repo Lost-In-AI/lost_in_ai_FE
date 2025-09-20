@@ -4,10 +4,8 @@ import { generateSessionID } from "../utils/utils";
 
 interface SessionStore {
   sessionData: SessionData;
-  shouldAnimateLastMessage: boolean;
   updateSession: (updates: Partial<SessionData>) => void;
   saveToStorage: (data: SessionData) => void;
-  setShouldAnimateLastMessage: (value: boolean) => void;
   pushMessageToHistory: (message: Message) => void;
 }
 
@@ -23,19 +21,15 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
       };
     }
   })(),
-  shouldAnimateLastMessage: false,
   saveToStorage: (data: SessionData) => {
     sessionStorage.setItem("session", JSON.stringify(data));
     set({ sessionData: data });
   },
-
   updateSession: (updates: Partial<SessionData>) => {
     const current = get().sessionData;
     const updated = { ...current, ...updates };
     get().saveToStorage(updated);
   },
-
-  setShouldAnimateLastMessage: (value: boolean) => set({ shouldAnimateLastMessage: value }),
   pushMessageToHistory: (message: Message) => {
     const currentHistory = get().sessionData.history;
     const updatedHistory = [...currentHistory, message];
