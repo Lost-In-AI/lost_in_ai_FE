@@ -4,6 +4,10 @@ interface GlobalWithAudioContext {
   webkitAudioContext?: AudioContextConstructor;
 }
 
+import { useErrorStore, AppError } from "../store/useErrorStore";
+
+const addError = useErrorStore.getState().addError;
+
 export function useMusic() {
   let audioContext: AudioContext | null = null;
   let audioSource: AudioBufferSourceNode | null = null;
@@ -35,7 +39,8 @@ export function useMusic() {
       // Carica e decodifica l'audio
       const response = await fetch("/assets/audio/creepy.mp3");
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        addError(AppError.AUDIO_PLAYBACK_ERROR);
+        return;
       }
       const arrayBuffer = await response.arrayBuffer();
       // Create a copy of the buffer before attempting decode to avoid detachment issues
@@ -45,8 +50,8 @@ export function useMusic() {
       let audioBuffer: AudioBuffer;
       try {
         audioBuffer = await context.decodeAudioData(bufferCopy);
-      } catch (decodeError) {
-        console.error("Web Audio API decode failed, falling back to HTML Audio:", decodeError);
+      } catch {
+        addError(AppError.AUDIO_PLAYBACK_ERROR);
         return;
       }
 
@@ -61,8 +66,9 @@ export function useMusic() {
       gainNode.connect(context.destination);
       audioSource = source;
       source.start(0);
-    } catch (err) {
-      console.error("Audio playback error:", err);
+    } catch {
+      addError(AppError.AUDIO_PLAYBACK_ERROR);
+      //console.error("Audio playback error:", err);
     }
   }
 
