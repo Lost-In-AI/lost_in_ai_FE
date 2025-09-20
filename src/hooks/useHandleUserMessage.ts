@@ -3,6 +3,9 @@ import { useChatStatusStore } from "../store/useChatStatusStore";
 import { useApiCall } from "./useApiCall";
 import { useDelayHandler } from "./useDelayHandler";
 import { useResponseProcessor } from "./useResponseProcessor";
+import { useErrorStore, AppError } from "../store/useErrorStore";
+
+const addError = useErrorStore.getState().addError;
 
 export default function useHandleUserMessage() {
   const chatStatus = useChatStatusStore();
@@ -18,10 +21,12 @@ export default function useHandleUserMessage() {
         await processResponse(assistantResponse);
       } else {
         // TODO: errore lato BE, mostrare un popup/qualcosa
-        console.error("Error while updating response's value", assistantResponse);
+        addError(AppError.UNKNOWN);
+        //console.error("Error while updating response's value", assistantResponse);
       }
-    } catch (error) {
-      console.error("Error while posting message: ", error);
+    } catch {
+      addError(AppError.API_TIMEOUT);
+      //console.error("Error while posting message: ", error);
     } finally {
       delayCleanup();
       chatStatus.setStatus("idle");
