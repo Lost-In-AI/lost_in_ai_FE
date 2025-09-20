@@ -52,7 +52,6 @@ export function useMusic() {
         audioBuffer = await context.decodeAudioData(bufferCopy);
       } catch {
         addError(AppError.AUDIO_PLAYBACK_ERROR);
-        //console.error("Web Audio API decode failed, falling back to HTML Audio:", decodeError);
         return;
       }
 
