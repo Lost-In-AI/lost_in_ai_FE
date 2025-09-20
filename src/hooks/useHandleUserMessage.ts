@@ -5,6 +5,9 @@ import { useSessionStore } from "../store/useSessionStore";
 import { useApiCall } from "./useApiCall";
 import { useDelayHandler } from "./useDelayHandler";
 import { useResponseProcessor } from "./useResponseProcessor";
+import { useErrorStore, AppError } from "../store/useErrorStore";
+
+const addError = useErrorStore.getState().addError;
 
 export default function useHandleUserMessage() {
   const chatStatus = useChatStatusStore();
@@ -26,14 +29,13 @@ export default function useHandleUserMessage() {
         currentResponseCountRef.current = assistantResponse.current_responses.length; // quante risposte abbiamo dal BE
         await processResponse(assistantResponse, abortControllerRef.current?.signal, botMessagesAddedRef);
       } else {
-        // TODO: errore lato BE, mostrare un popup/qualcosa
-        console.error("Error while updating response's value", assistantResponse);
+        addError(AppError.UNKNOWN);
       }
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {
         console.log("Request was cancelled");
       } else {
-        console.error("Error while posting message: ", error);
+        addError(AppError.API_TIMEOUT);
       }
     } finally {
       abortControllerRef.current = null;
