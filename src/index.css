@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap");
 @import "tailwindcss";
 
 /**
@@ -33,13 +34,15 @@
   --color-border: var(--color-primary-200);
   --color-disabled: var(--color-secondary-100);
   --color-error: oklch(54.53% 0.222 27.05);
-  --color-dark: #101828;
-  --color-background-dark: #1c2433;
+
+  /* Font serif setup */
+  --font-serif: "DM Serif Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 html,
 body,
 #root {
+  background-color: white;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -48,17 +51,10 @@ body,
 }
 
 body {
-  background-color: #ffffff;
+  background-color: white;
   color: var(--color-base-text);
   margin: 0;
   overflow-x: hidden;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0px 1000px var(--color-background-dark) inset;
-  -webkit-text-fill-color: #ffffff; /* colore del testo */
-  transition: background-color 5000s ease-in-out 0s; /* evita flash */
+  min-height: 100vh;
+  font-family: ui-sans-serif, system-ui, sans-serif;
 }
