@@ -1,5 +1,8 @@
 import { Endpoint, type BackendResponse, type Message } from "../../types/type";
 import { useSessionStore } from "../store/useSessionStore";
+import { useErrorStore, AppError } from "../store/useErrorStore";
+
+const addError = useErrorStore.getState().addError;
 
 export function useApiCall() {
   const { sessionData, updateSession } = useSessionStore();
@@ -17,7 +20,7 @@ export function useApiCall() {
       signal: abortSignal, // per stoppare la richiesta in caso la promise non fosse stata ancora risolta
     });
     if (!res.ok) {
-      throw new Error(`API call failed with status: ${res.status}`);
+      addError(AppError.API_TIMEOUT);
     }
     const assistantResponse: BackendResponse = await res.json();
     return assistantResponse;

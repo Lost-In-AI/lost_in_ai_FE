@@ -29,13 +29,13 @@ export default function useHandleUserMessage() {
         currentResponseCountRef.current = assistantResponse.current_responses.length; // quante risposte abbiamo dal BE
         await processResponse(assistantResponse, abortControllerRef.current?.signal, botMessagesAddedRef);
       } else {
-        addError(AppError.UNKNOWN);
+        addError(AppError.BOT_RESPONSE_ERROR);
       }
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {
         console.log("Request was cancelled");
       } else {
-        addError(AppError.API_TIMEOUT);
+        addError(AppError.WHILE_POSTING_ERROR);
       }
     } finally {
       abortControllerRef.current = null;
