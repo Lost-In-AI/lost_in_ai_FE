@@ -14,7 +14,7 @@ export default function ChatWrapper({ children }: ChatWrapperProps) {
   const [isVisible, setIsVisible] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const { sessionData } = useSessionStore();
-  const { loading } = useChatStatusStore();
+  const { loading, animationResolver } = useChatStatusStore();
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -36,7 +36,7 @@ export default function ChatWrapper({ children }: ChatWrapperProps) {
           <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4">
             <Header onClose={() => setIsVisible(!isVisible)} />
             {children}
-            {loading === "pending" && <MessageLoading />}
+            {loading === "pending" && !animationResolver && <MessageLoading />}
           </div>
           <Input />
         </div>

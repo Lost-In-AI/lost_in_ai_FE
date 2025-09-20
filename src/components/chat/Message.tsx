@@ -8,7 +8,7 @@ interface MessageProps {
 }
 
 export default function Message({ text, isUser, timestamp, animate }: MessageProps) {
-  const animatedText = useTypewriterText({
+  const { animatedText } = useTypewriterText({
     text: text,
     delay: 20,
   });

@@ -5,8 +5,8 @@ import { parsePrompt } from "../utils/utils";
 import { useDelayHandler } from "./useDelayHandler";
 
 export function useResponseProcessor() {
-  const chatStatus = useChatStatusStore();
-  const { pushMessageToHistory, setShouldAnimateLastMessage } = useSessionStore();
+  const { setShouldAnimateLastMessage, waitAnimation } = useChatStatusStore();
+  const { pushMessageToHistory } = useSessionStore();
   const { handleDelayedExecution } = useDelayHandler();
 
   function parseResponse(responses: Array<Message>, index: number) {
@@ -20,11 +20,11 @@ export function useResponseProcessor() {
   }
 
   async function processResponse(response: BackendResponse) {
-    pushMessageToHistory(parseResponse(response.current_responses, 0));
     setShouldAnimateLastMessage(true);
+    pushMessageToHistory(parseResponse(response.current_responses, 0));
+    await waitAnimation();
     if (response.current_responses.length > 1) {
       for (let i = 1; i < response.current_responses.length; i++) {
-        chatStatus.setStatus("pending");
         await handleDelayedExecution(response.break_reason);
         setShouldAnimateLastMessage(true);
         pushMessageToHistory(parseResponse(response.current_responses, i));

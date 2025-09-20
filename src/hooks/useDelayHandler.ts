@@ -6,17 +6,13 @@ export function useDelayHandler() {
   const { playMusic, stopMusic } = useMusic();
 
   async function handleDelayedExecution(breakReason: string): Promise<void> {
-    return new Promise((resolve) => {
-      if (breakReason === BreakReason.MUSIC) {
-        playMusic();
-        setTimeout(() => {
-          stopMusic();
-          resolve();
-        }, randomDurationMs());
-      } else {
-        setTimeout(resolve, 1000);
-      }
-    });
+    if (breakReason === BreakReason.MUSIC) {
+      playMusic();
+      await new Promise((resolve) => setTimeout(resolve, randomDurationMs()));
+      stopMusic();
+    } else {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
   }
 
   function delayCleanup() {
