@@ -33,6 +33,7 @@ export function useResponseProcessor() {
     }
     if (response.current_responses.length > 1) {
       // se ci arrivano più risposte lato BE
+      // se ci arrivano più risposte lato BE
       for (let i = 1; i < response.current_responses.length; i++) {
         if (abortSignal?.aborted) {
           // stop se l utente ha annullato
