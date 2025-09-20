@@ -39,7 +39,8 @@ export function useMusic() {
       // Carica e decodifica l'audio
       const response = await fetch("/assets/audio/creepy.mp3");
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        addError(AppError.AUDIO_PLAYBACK_ERROR);
+        return;
       }
       const arrayBuffer = await response.arrayBuffer();
       // Create a copy of the buffer before attempting decode to avoid detachment issues

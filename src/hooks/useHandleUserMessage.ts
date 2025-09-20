@@ -21,12 +21,10 @@ export default function useHandleUserMessage() {
         await processResponse(assistantResponse);
       } else {
         // TODO: errore lato BE, mostrare un popup/qualcosa
-        addError(AppError.UNKNOWN);
-        //console.error("Error while updating response's value", assistantResponse);
+        addError(AppError.BOT_RESPONSE_ERROR);
       }
     } catch {
-      addError(AppError.API_TIMEOUT);
-      //console.error("Error while posting message: ", error);
+      addError(AppError.WHILE_POSTING_ERROR);
     } finally {
       delayCleanup();
       chatStatus.setStatus("idle");
