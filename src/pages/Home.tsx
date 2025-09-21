@@ -29,6 +29,7 @@ export default function Home() {
             <Message
               key={index}
               text={message.text}
+              personality={message.bot_personality}
               isUser={message.sender === Sender.USER}
               animate={index === sessionData?.history.length - 1 && shouldAnimateLastMessage}
               timestamp={formatTimestap(message.timestamp)}

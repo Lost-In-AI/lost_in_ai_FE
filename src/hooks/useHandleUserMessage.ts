@@ -26,7 +26,7 @@ export default function useHandleUserMessage() {
       chatStatus.setStatus("pending");
       const assistantResponse = await sendMessage(message, abortControllerRef.current.signal);
       if (assistantResponse && assistantResponse.current_responses) {
-        currentResponseCountRef.current = assistantResponse.current_responses.length; // quante risposte abbiamo dal BE
+        currentResponseCountRef.current = assistantResponse.current_responses.length;
         await processResponse(assistantResponse, abortControllerRef.current?.signal, botMessagesAddedRef);
       } else {
         addError(AppError.BOT_RESPONSE_ERROR);
@@ -50,13 +50,11 @@ export default function useHandleUserMessage() {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
     }
-    // Rimuovi solo i messaggi del bot che sono stati effettivamente aggiunti oltre il primo
     const botMessagesAdded = botMessagesAddedRef.current;
     if (botMessagesAdded > 1) {
-      // rimuovo solo i messaggi dopo il 1°
       removeLastNMessagesFromHistory(botMessagesAdded - 1);
     }
-    chatStatus.setStatus("idle"); // reset chat stauts
+    chatStatus.setStatus("idle");
     delayCleanup();
   }
 

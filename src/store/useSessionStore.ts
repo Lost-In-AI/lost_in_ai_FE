@@ -22,14 +22,14 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
       };
     }
   })(),
-  saveToStorage: (data: SessionData) => {
-    sessionStorage.setItem("session", JSON.stringify(data));
-    set({ sessionData: data });
-  },
   updateSession: (updates: Partial<SessionData>) => {
     const current = get().sessionData;
     const updated = { ...current, ...updates };
     get().saveToStorage(updated);
+  },
+  saveToStorage: (data: SessionData) => {
+    sessionStorage.setItem("session", JSON.stringify(data));
+    set({ sessionData: data });
   },
   pushMessageToHistory: (message: Message) => {
     const currentHistory = get().sessionData.history;
