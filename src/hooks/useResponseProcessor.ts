@@ -32,7 +32,7 @@ export function useResponseProcessor() {
       botMessagesCountRef.current = 1;
     }
     if (response.current_responses.length > 1) {
-      for (let i = 1; i < response.curren_responses.length; i++) {
+      for (let i = 1; i < response.current_responses.length; i++) {
         if (abortSignal?.aborted) {
           return;
         }

@@ -58,7 +58,7 @@ export default function Input() {
               handleSubmit(e);
             }
           }}
-          className={`w-full px-3 py-2 pr-16 bg-primary-100/50 text-primary-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700/50 transition-opacity ${
+          className={`size-full px-3 py-2 pr-16 bg-primary-100/50 text-primary-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-700/50 transition-opacity ${
             isPending ? "opacity-50 cursor-not-allowed bg-gray-100" : ""
           }`}
         />
