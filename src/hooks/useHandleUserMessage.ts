@@ -10,7 +10,7 @@ import { useErrorStore, AppError } from "../store/useErrorStore";
 const addError = useErrorStore.getState().addError;
 
 export default function useHandleUserMessage() {
-  const chatStatus = useChatStatusStore();
+  const { setStatus, setShouldAnimateLastMessage } = useChatStatusStore();
   const { delayCleanup } = useDelayHandler();
   const { sendMessage } = useApiCall();
   const { processResponse } = useResponseProcessor();
@@ -23,7 +23,7 @@ export default function useHandleUserMessage() {
     try {
       abortControllerRef.current = new AbortController(); // inizializzo controller
       botMessagesAddedRef.current = 0; // inizializzo il numero dei messaggi
-      chatStatus.setStatus("pending");
+      setStatus("pending");
       const assistantResponse = await sendMessage(message, abortControllerRef.current.signal);
       if (assistantResponse && assistantResponse.current_responses) {
         currentResponseCountRef.current = assistantResponse.current_responses.length;
@@ -42,7 +42,7 @@ export default function useHandleUserMessage() {
       currentResponseCountRef.current = 0;
       botMessagesAddedRef.current = 0;
       delayCleanup();
-      chatStatus.setStatus("idle");
+      setStatus("idle");
     }
   }
 
@@ -54,7 +54,8 @@ export default function useHandleUserMessage() {
     if (botMessagesAdded > 1) {
       removeLastNMessagesFromHistory(botMessagesAdded - 1);
     }
-    chatStatus.setStatus("idle");
+    setShouldAnimateLastMessage(false);
+    setStatus("idle");
     delayCleanup();
   }
 
