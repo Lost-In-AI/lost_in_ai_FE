@@ -10,7 +10,7 @@ export default function Input() {
   const [message, setMessage] = useState<string>("");
   const { handleUserMessage, cancelRequest } = useHandleUserMessage();
 
-  const { loading, setStatus } = useChatStatusStore();
+  const { loading } = useChatStatusStore();
 
   const isPending = loading === "pending";
   const isMessageValid = message.trim() && message.length <= MAX_MESSAGE_LENGTH;
@@ -34,7 +34,7 @@ export default function Input() {
   }
 
   function handleStop() {
-    setStatus("idle");
+    cancelRequest();
   }
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
