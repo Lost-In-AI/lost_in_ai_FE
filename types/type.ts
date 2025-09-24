@@ -54,6 +54,7 @@ export type BreakReason = (typeof BreakReason)[keyof typeof BreakReason];
 
 export const BotPersonalities = {
   WITTY: "witty",
+  INEPT: "inept"
 } as const;
 export type BotPersonalities = (typeof BotPersonalities)[keyof typeof BotPersonalities];
 
