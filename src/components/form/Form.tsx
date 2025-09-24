@@ -35,9 +35,7 @@ export default function Form({ isLogin }: FormProps) {
     e.preventDefault();
     setErrors({});
 
-    const result = isLogin
-      ? await loginUser(formData)
-      : await registerUser(formData);
+    const result = isLogin ? await loginUser(formData) : await registerUser(formData);
 
     if (!result.success) {
       console.log("Risultato login/register:", result);
@@ -69,11 +67,7 @@ export default function Form({ isLogin }: FormProps) {
                     errors.name ? "border-red-500" : "border-gray-300"
                   }`}
                 />
-                <div className="h-4 mt-1">
-                  {errors.name && (
-                    <p className="text-xs text-red-500">{errors.name}</p>
-                  )}
-                </div>
+                <div className="h-4 mt-1">{errors.name && <p className="text-xs text-red-500">{errors.name}</p>}</div>
               </div>
             </div>
 
@@ -95,9 +89,7 @@ export default function Form({ isLogin }: FormProps) {
                   }`}
                 />
                 <div className="h-4 mt-1">
-                  {errors.surname && (
-                    <p className="text-xs text-red-500">{errors.surname}</p>
-                  )}
+                  {errors.surname && <p className="text-xs text-red-500">{errors.surname}</p>}
                 </div>
               </div>
             </div>
@@ -121,11 +113,7 @@ export default function Form({ isLogin }: FormProps) {
                 errors.email ? "border-red-500" : "border-gray-300"
               }`}
             />
-            <div className="h-4 mt-1">
-              {errors.email && (
-                <p className="text-xs text-red-500">{errors.email}</p>
-              )}
-            </div>
+            <div className="h-4 mt-1">{errors.email && <p className="text-xs text-red-500">{errors.email}</p>}</div>
           </div>
         </div>
 
@@ -150,7 +138,7 @@ export default function Form({ isLogin }: FormProps) {
             <div
               onClick={() => setShowPassword(!showPassword)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
+                if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
                   setShowPassword(!showPassword);
                 }
@@ -161,11 +149,7 @@ export default function Form({ isLogin }: FormProps) {
               {showPassword ? <EyeIcon color="#374151" /> : <EyeslashIcon color="#374151" />}
             </div>
           </div>
-          <div className="h-4 mt-1">
-            {errors.password && (
-              <p className="text-xs text-red-500">{errors.password}</p>
-            )}
-          </div>
+          <div className="h-4 mt-1">{errors.password && <p className="text-xs text-red-500">{errors.password}</p>}</div>
         </div>
 
         {!isLogin && (
@@ -186,9 +170,9 @@ export default function Form({ isLogin }: FormProps) {
                   setConfirmPassword(value);
 
                   if (value !== formData.password && value !== "") {
-                    setErrors(prev => ({ ...prev, confirmPassword: "Le password non corrispondono" }));
+                    setErrors((prev) => ({ ...prev, confirmPassword: "Le password non corrispondono" }));
                   } else {
-                    setErrors(prev => ({ ...prev, confirmPassword: undefined }));
+                    setErrors((prev) => ({ ...prev, confirmPassword: undefined }));
                   }
                 }}
                 className={`block w-full pr-10 pl-2 bg-white rounded-md border py-1.5 shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-600 sm:text-sm sm:leading-6 ${
@@ -198,7 +182,7 @@ export default function Form({ isLogin }: FormProps) {
               <div
                 onClick={() => SetShowConfirmPassword(!showConfirmPassword)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
+                  if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
                     SetShowConfirmPassword(!showConfirmPassword);
                   }
@@ -210,9 +194,7 @@ export default function Form({ isLogin }: FormProps) {
               </div>
             </div>
             <div className="h-4 mt-1">
-              {errors.confirmPassword && (
-                <p className="text-xs text-red-500">{errors.confirmPassword}</p>
-              )}
+              {errors.confirmPassword && <p className="text-xs text-red-500">{errors.confirmPassword}</p>}
             </div>
           </div>
         )}
@@ -227,11 +209,7 @@ export default function Form({ isLogin }: FormProps) {
           </div>
         )}
 
-        <Button
-          tabIndex={0}
-          variant="submit"
-          text={isLogin ? "Accedi" : "Registrati"}
-        />
+        <Button tabIndex={0} variant="submit" text={isLogin ? "Accedi" : "Registrati"} />
       </form>
     </div>
   );

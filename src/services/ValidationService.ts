@@ -1,6 +1,5 @@
 import { type FormData } from "../../types/type";
 
-
 interface ValidationResult {
   isValid: boolean;
   errors: {

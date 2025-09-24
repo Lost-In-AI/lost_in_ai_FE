@@ -1,13 +1,10 @@
 import Form from "../components/form/Form";
 
-
 interface AuthContainerProps {
   isLogin: boolean;
 }
 
 export default function AuthContainer({ isLogin }: AuthContainerProps) {
-
-
   return (
     <div className="flex min-h-screen flex-1 bg-white text-gray-900">
       <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
@@ -36,7 +33,6 @@ export default function AuthContainer({ isLogin }: AuthContainerProps) {
         </div>
       </div>
       <div className="relative hidden w-0 flex-1 lg:block">
-
         <img
           className="absolute inset-0 h-full w-full object-cover object-right "
           src="https://images.unsplash.com/photo-1758518729711-1cbacd55efdb?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
