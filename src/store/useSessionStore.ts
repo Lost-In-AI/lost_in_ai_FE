@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import type { Message, SessionData } from "../../types/type";
-import { generateSessionID } from "../utils/utils";
 
 interface SessionStore {
   sessionData: SessionData;
@@ -17,7 +16,7 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
       return JSON.parse(storedData);
     } else {
       return {
-        session_id: generateSessionID(),
+        session_id: null,
         history: [],
       };
     }

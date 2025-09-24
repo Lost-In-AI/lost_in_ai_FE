@@ -7,7 +7,7 @@ import { useDelayHandler } from "./useDelayHandler";
 
 export function useResponseProcessor() {
   const { setShouldAnimateLastMessage, waitAnimation } = useChatStatusStore();
-  const { pushMessageToHistory } = useSessionStore();
+  const { pushMessageToHistory, sessionData, updateSession } = useSessionStore();
   const { handleDelayedExecution } = useDelayHandler();
 
   function parseResponse(responses: Array<Message>, index: number) {
@@ -25,6 +25,9 @@ export function useResponseProcessor() {
     abortSignal?: AbortSignal,
     botMessagesCountRef?: React.RefObject<number>,
   ) {
+    if (!sessionData.session_id) {
+      updateSession({ session_id: response.session_id });
+    }
     pushMessageToHistory(parseResponse(response.current_responses, 0));
     setShouldAnimateLastMessage(true);
     await waitAnimation();
