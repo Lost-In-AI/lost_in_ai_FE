@@ -199,16 +199,6 @@ export default function Form({ isLogin }: FormProps) {
           </div>
         )}
 
-        {isLogin && (
-          <div className="flex items-end">
-            <div className="text-sm leading-6 text-right w-full">
-              <a href="#" className="font-semibold text-primary-600 hover:text-primary-500">
-                Forgot password?
-              </a>
-            </div>
-          </div>
-        )}
-
         <Button tabIndex={0} variant="submit" text={isLogin ? "Accedi" : "Registrati"} />
       </form>
     </div>

@@ -1,4 +1,5 @@
 import Form from "../components/form/Form";
+import { Link } from "react-router-dom";
 
 interface AuthContainerProps {
   isLogin: boolean;
@@ -19,13 +20,13 @@ export default function AuthContainer({ isLogin }: AuthContainerProps) {
             </h2>
             <p className="mt-2 text-sm leading-6 text-gray-600">
               {isLogin ? "Non hai un account ? " : "Hai già un account ?"}
-              <a
-                href={isLogin ? "/register" : "/login"}
+              <Link
+                to={isLogin ? "/register" : "/login"}
                 className="font-semibold text-primary-500 hover:text-primary-500"
               >
                 {" "}
                 {isLogin ? "Registrati" : "Accedi"}
-              </a>
+              </Link>
             </p>
           </div>
 
