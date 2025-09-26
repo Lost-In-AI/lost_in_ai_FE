@@ -69,4 +69,6 @@ export interface BackendResponse {
 export  interface FormData {
   email: string | null
   password: string | null
+  name: string | null
+  surname: string | null
 }
