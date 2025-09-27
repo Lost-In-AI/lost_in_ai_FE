@@ -22,12 +22,10 @@ export function useDelayHandler() {
       };
       abortSignal?.addEventListener("abort", abortHandler);
       if (breakReason === BreakReason.MUSIC) {
-        //console.log("play")
         playMusic();
         timeoutId = setTimeout(() => {
           stopMusic();
           abortSignal?.removeEventListener("abort", abortHandler);
-          //console.log("abort!");
           resolve();
         }, randomDurationMs());
       } else {

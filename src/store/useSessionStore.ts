@@ -1,8 +1,9 @@
 import { create } from "zustand";
-import type { Message, SessionData } from "../../types/type";
+import type { BotPersonalities, Message, SessionData } from "../../types/type";
 
 interface SessionStore {
   sessionData: SessionData;
+  lastMessagePersonality: () => BotPersonalities | undefined;
   setSession: (data: SessionData) => void;
   updateSession: (updates: Partial<SessionData>) => void;
   pushMessageToHistory: (message: Message) => void;
@@ -17,6 +18,10 @@ const initialSessionData: SessionData = {
 
 export const useSessionStore = create<SessionStore>((set, get) => ({
   sessionData: initialSessionData,
+  lastMessagePersonality: () => {
+    const current = get().sessionData;
+    return current.history.at(-1)?.bot_personality;
+  },
   setSession: (data: SessionData) => {
     set({ sessionData: data });
   },

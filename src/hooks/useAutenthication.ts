@@ -36,7 +36,6 @@ export default function useAuthentication() {
         return { success: true };
       }
       return { success: false, errors: { email: "Si è verificato un errore" } };
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       console.log("error catch login", error);
       return { success: false, errors: { email: "Credenziali non valide" } };
@@ -60,7 +59,6 @@ export default function useAuthentication() {
           lastName: formData.surname as string,
         },
       });
-      //console.log("result", result)
       if (result.status === "complete") {
         await setActiveSignUp({ session: result.createdSessionId });
         navigate("/");

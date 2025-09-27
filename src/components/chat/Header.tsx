@@ -1,4 +1,6 @@
 import { useChatStatusStore } from "../../store/useChatStatusStore";
+import { useSessionStore } from "../../store/useSessionStore";
+import { getAssistantAvatar } from "../../utils/utils";
 import Button from "../button/Button";
 
 interface HeaderProps {
@@ -7,12 +9,17 @@ interface HeaderProps {
 
 export default function Header({ onClose }: HeaderProps) {
   const { loading } = useChatStatusStore();
+  const { lastMessagePersonality } = useSessionStore();
   return (
     <section className="rounded-lg h-[68px]   flex items-center place-content-between  top-0 isolate sticky ">
       <div className="absolute  size-full rounded-lg inset-0 bg-primary-700/85 -z-10 "></div>
       <div className="flex gap-2 items-center">
         <div className="w-13 h-13 rounded-lg ml-2">
-          <img src="/icons/avatar.png" alt="avatar assistant" className="rounded-lg" />
+          <img
+            src={getAssistantAvatar(lastMessagePersonality()).avatar}
+            alt={getAssistantAvatar(lastMessagePersonality()).alt}
+            className="rounded-lg"
+          />
         </div>
         <div className="flex flex-col">
           {/* TODO: Mettere nome dinamico se vogliamo cambiare operatore */}

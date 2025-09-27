@@ -1,4 +1,4 @@
-import type { Placeholders } from "../../types/type";
+import { BotPersonalities, type Placeholders } from "../../types/type";
 
 // funzioni di utility tipo questa
 export function UpperCase(text: string) {
@@ -33,4 +33,15 @@ export function parsePrompt(prompt: string, placeHolders: Placeholders) {
     }
   }
   return result; // ritorno il prompt pulito
+}
+
+export function getAssistantAvatar(personality?: BotPersonalities | undefined): { avatar: string; alt: string } {
+  switch (personality) {
+    case BotPersonalities.WITTY:
+      return { avatar: "/assets/avatar/avatar-witty.png", alt: "Bot Witty" };
+    case BotPersonalities.INEPT:
+      return { avatar: "/assets/avatar/avatar-inept.png", alt: "Bot Inept" };
+    default:
+      return { avatar: "/assets/avatar/avatar-witty.png", alt: "Bot Witty" };
+  }
 }
