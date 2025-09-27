@@ -3,32 +3,26 @@ import type { Message, SessionData } from "../../types/type";
 
 interface SessionStore {
   sessionData: SessionData;
+  setSession: (data: SessionData) => void;
   updateSession: (updates: Partial<SessionData>) => void;
-  saveToStorage: (data: SessionData) => void;
   pushMessageToHistory: (message: Message) => void;
   removeLastNMessagesFromHistory: (count: number) => void;
+  clearSession: () => void;
 }
 
+const initialSessionData: SessionData = {
+  session_id: null,
+  history: [],
+};
+
 export const useSessionStore = create<SessionStore>((set, get) => ({
-  sessionData: (() => {
-    const storedData = sessionStorage.getItem("session");
-    if (storedData) {
-      return JSON.parse(storedData);
-    } else {
-      return {
-        session_id: null,
-        history: [],
-      };
-    }
-  })(),
+  sessionData: initialSessionData,
+  setSession: (data: SessionData) => {
+    set({ sessionData: data });
+  },
   updateSession: (updates: Partial<SessionData>) => {
     const current = get().sessionData;
-    const updated = { ...current, ...updates };
-    get().saveToStorage(updated);
-  },
-  saveToStorage: (data: SessionData) => {
-    sessionStorage.setItem("session", JSON.stringify(data));
-    set({ sessionData: data });
+    set({ sessionData: { ...current, ...updates } });
   },
   pushMessageToHistory: (message: Message) => {
     const currentHistory = get().sessionData.history;
@@ -41,5 +35,8 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
       const updatedHistory = currentHistory.slice(0, -count);
       get().updateSession({ history: updatedHistory });
     }
+  },
+  clearSession: () => {
+    set({ sessionData: initialSessionData });
   },
 }));

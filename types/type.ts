@@ -41,7 +41,7 @@ export interface Message {
 }
 
 export interface SessionData {
-  session_id: string;
+  session_id: string | null;
   history: Message[];
   current_message?: string;
   summary?: string;
@@ -74,4 +74,3 @@ export  interface FormData {
   name: string | null
   surname: string | null
 }
-
