@@ -14,6 +14,7 @@ export interface ExampleBtn {
 
 export const Endpoint = {
   SEND_MESSAGE: (import.meta.env.VITE_BE_BASE_URL as string) + "/api/chat",
+  PATCH_SESSION: (import.meta.env.VITE_BE_BASE_URL as string) + "/api/chat/patch", // Forse non necessario?
 } as const;
 
 // Tipizzazione per il mock delle API responses che simulano la chat

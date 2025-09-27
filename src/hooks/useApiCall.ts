@@ -26,5 +26,22 @@ export function useApiCall() {
     return assistantResponse;
   }
 
-  return { sendMessage };
+  async function sendPatch(): Promise<void> {
+    console.log("PATCH!");
+    // const request = {
+    //   ...sessionData,
+    // };
+    // const res = await fetch(Endpoint.PATCH_SESSION, {
+    //   method: "PATCH",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(request),
+    // });
+
+    // if (!res.ok) {
+    //   addError(AppError.API_TIMEOUT);
+    //   throw new Error(`HTTP error! status: ${res.status}`);
+    // }
+  }
+
+  return { sendMessage, sendPatch };
 }
