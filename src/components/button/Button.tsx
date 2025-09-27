@@ -31,7 +31,7 @@ export default function Button({
     close: "rounded-lg flex items-center justify-center w-10 h-10",
     stop: "rounded-lg flex items-center justify-center w-13 h-13",
     submit:
-      "flex w-full text-white justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm hover:bg-indigo-500 focus-visible:outline  focus-visible:outline-offset-2 focus-visible:outline-indigo-600",
+      "flex w-full text-white justify-center rounded-md bg-primary-500 px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm hover:bg-primary-500 focus-visible:outline  focus-visible:outline-offset-2 focus-visible:outline-primary-600",
     cancel: "rounded-lg flex items-center justify-center w-13 h-13 bg-red-500 hover:bg-red-600",
   };
 
