@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import type { Message, SessionData } from "../../types/type";
-import { generateSessionID } from "../utils/utils";
 
 interface SessionStore {
   sessionData: SessionData;
@@ -17,19 +16,19 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
       return JSON.parse(storedData);
     } else {
       return {
-        session_id: generateSessionID(),
+        session_id: null,
         history: [],
       };
     }
   })(),
-  saveToStorage: (data: SessionData) => {
-    sessionStorage.setItem("session", JSON.stringify(data));
-    set({ sessionData: data });
-  },
   updateSession: (updates: Partial<SessionData>) => {
     const current = get().sessionData;
     const updated = { ...current, ...updates };
     get().saveToStorage(updated);
+  },
+  saveToStorage: (data: SessionData) => {
+    sessionStorage.setItem("session", JSON.stringify(data));
+    set({ sessionData: data });
   },
   pushMessageToHistory: (message: Message) => {
     const currentHistory = get().sessionData.history;

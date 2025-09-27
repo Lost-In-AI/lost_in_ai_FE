@@ -7,10 +7,6 @@ export function UpperCase(text: string) {
   return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
 }
 
-export function generateSessionID() {
-  return "session-" + Math.random().toString(36).slice(2, 9);
-}
-
 export function formatTimestap(timestamp?: string) {
   if (!timestamp) return null;
   return new Date(timestamp).toLocaleTimeString("it-IT", {

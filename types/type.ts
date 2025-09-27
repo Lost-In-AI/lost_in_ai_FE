@@ -31,13 +31,13 @@ export const replacePlaceholder = {
   CHATBOT_NAME: "Bankly",
   // aggiungere le altre variabili
 } as const;
-
 export type Placeholders = Record<KeysOf<typeof replacePlaceholder>, string>;
 
 export interface Message {
   sender: ValueOf<typeof Sender>;
   text: string;
   timestamp?: string;
+  bot_personality?: BotPersonalities;
 }
 
 export interface SessionData {
@@ -50,10 +50,13 @@ export interface SessionData {
 export const BreakReason = {
   MUSIC: "music",
 } as const;
+export type BreakReason = (typeof BreakReason)[keyof typeof BreakReason];
 
 export const BotPersonalities = {
   WITTY: "witty",
+  INEPT: "inept"
 } as const;
+export type BotPersonalities = (typeof BotPersonalities)[keyof typeof BotPersonalities];
 
 export interface BackendResponse {
   response_code: number;
@@ -61,8 +64,7 @@ export interface BackendResponse {
   current_responses: Array<Message>;
   summary: string;
   history: Array<Message>;
-  break_reason: (typeof BreakReason)[keyof typeof BreakReason];
-  bot_personality?: (typeof BotPersonalities)[keyof typeof BotPersonalities];
+  break_reason: BreakReason;
 }
 
 
@@ -72,3 +74,4 @@ export  interface FormData {
   name: string | null
   surname: string | null
 }
+

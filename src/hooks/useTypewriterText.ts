@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useChatStatusStore } from "../store/useChatStatusStore";
 
 interface UseTypewriterTextProps {
@@ -8,9 +8,10 @@ interface UseTypewriterTextProps {
 }
 
 export default function useTypewriterText({ text, delay = 20, onComplete }: UseTypewriterTextProps) {
-  const { setShouldAnimateLastMessage, completeAnimation } = useChatStatusStore();
+  const { shouldAnimateLastMessage, setShouldAnimateLastMessage, completeAnimation } = useChatStatusStore();
   const [currentText, setCurrentText] = useState<string>("");
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleComplete = useCallback(() => {
     completeAnimation();
@@ -18,28 +19,51 @@ export default function useTypewriterText({ text, delay = 20, onComplete }: UseT
     if (onComplete) onComplete();
   }, [completeAnimation, setShouldAnimateLastMessage, onComplete]);
 
-  useEffect(() => {
-    setCurrentText("");
-    setCurrentIndex(0);
-  }, [text]);
-
-  useEffect(() => {
-    if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setCurrentText((prev) => prev + text[currentIndex]);
-        setCurrentIndex((prev) => prev + 1);
-      }, delay);
-      return () => clearTimeout(timeout);
-    } else if (currentIndex === text.length && text.length > 0) {
-      handleComplete();
-    }
-  }, [currentIndex, delay, text, handleComplete]);
-
   const skipAnimation = useCallback(() => {
     setCurrentText(text);
     setCurrentIndex(text.length);
     handleComplete();
   }, [text, handleComplete]);
 
-  return { animatedText: currentText, skipAnimation };
+  // If the text changes, reset the animation
+  useEffect(() => {
+    setCurrentText("");
+    setCurrentIndex(0);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  }, [text]);
+
+  // Text animation
+  useEffect(() => {
+    if (currentIndex < text.length) {
+      timeoutRef.current = setTimeout(() => {
+        setCurrentText((prev) => prev + text[currentIndex]);
+        setCurrentIndex((prev) => prev + 1);
+      }, delay);
+
+      return () => {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = null;
+        }
+      };
+    } else if (currentIndex === text.length && text.length > 0) {
+      handleComplete();
+    }
+  }, [currentIndex, delay, text, handleComplete]);
+
+  // If shouldAnimateLastMessage is false, skip the animation
+  useEffect(() => {
+    if (!shouldAnimateLastMessage && currentIndex < text.length && currentIndex > 0) {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+      skipAnimation();
+    }
+  }, [shouldAnimateLastMessage, currentIndex, text, skipAnimation]);
+
+  return { animatedText: currentText };
 }

@@ -17,7 +17,6 @@ export const useChatStatusStore = create<ChatStatusState>((set, get) => ({
   setStatus: (status) => {
     set({ loading: status });
   },
-
   shouldAnimateLastMessage: false,
   setShouldAnimateLastMessage: (value: boolean) => set({ shouldAnimateLastMessage: value }),
   animationResolver: null,
