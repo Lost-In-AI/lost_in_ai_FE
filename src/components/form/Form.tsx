@@ -67,6 +67,7 @@ export default function Form({ isLogin }: FormProps) {
                   className={`block w-full pl-2 bg-white rounded-md border py-1.5 shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-600 sm:text-sm sm:leading-6 ${
                     errors.name ? "border-red-500" : "border-gray-300"
                   }`}
+                  placeholder="Nome"
                 />
                 <div className="h-4 mt-1">{errors.name && <p className="text-xs text-red-500">{errors.name}</p>}</div>
               </div>
@@ -88,6 +89,7 @@ export default function Form({ isLogin }: FormProps) {
                   className={`block w-full pl-2 bg-white rounded-md border py-1.5 shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-600 sm:text-sm sm:leading-6 ${
                     errors.surname ? "border-red-500" : "border-gray-300"
                   }`}
+                  placeholder="Cognome"
                 />
                 <div className="h-4 mt-1">
                   {errors.surname && <p className="text-xs text-red-500">{errors.surname}</p>}
@@ -113,6 +115,7 @@ export default function Form({ isLogin }: FormProps) {
               className={`block w-full pl-2 bg-white rounded-md border py-1.5 shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-600 sm:text-sm sm:leading-6 ${
                 errors.email ? "border-red-500" : "border-gray-300"
               }`}
+              placeholder="Indirizzo email"
             />
             <div className="h-4 mt-1">{errors.email && <p className="text-xs text-red-500">{errors.email}</p>}</div>
           </div>
@@ -135,6 +138,7 @@ export default function Form({ isLogin }: FormProps) {
               className={`block w-full pr-10 pl-2 bg-white rounded-md border py-1.5 shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-600 sm:text-sm sm:leading-6 ${
                 errors.password ? "border-red-500" : "border-gray-300"
               }`}
+              placeholder="Password"
             />
             <div
               onClick={() => setShowPassword(!showPassword)}
@@ -179,6 +183,7 @@ export default function Form({ isLogin }: FormProps) {
                 className={`block w-full pr-10 pl-2 bg-white rounded-md border py-1.5 shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-600 sm:text-sm sm:leading-6 ${
                   errors.confirmPassword ? "border-red-500" : "border-gray-300"
                 }`}
+                placeholder="Conferma password"
               />
               <div
                 onClick={() => SetShowConfirmPassword(!showConfirmPassword)}
