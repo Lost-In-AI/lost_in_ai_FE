@@ -1,14 +1,17 @@
+import { BotPersonalities } from "../../../types/type";
 import useTypewriterText from "../../hooks/useTypewriterText";
+import { getAssistantAvatar } from "../../utils/utils";
 
 interface MessageProps {
   text: string;
+  personality: BotPersonalities | undefined;
   isUser: boolean;
   timestamp?: string | null;
   animate?: boolean;
 }
 
-export default function Message({ text, isUser, timestamp, animate }: MessageProps) {
-  const animatedText = useTypewriterText({
+export default function Message({ text, personality, isUser, timestamp, animate }: MessageProps) {
+  const { animatedText } = useTypewriterText({
     text: text,
     delay: 20,
   });
@@ -16,15 +19,24 @@ export default function Message({ text, isUser, timestamp, animate }: MessagePro
   const assistantVariant = "bg-primary-300/60 text-gray-800 rounded-md";
 
   return (
-    <div className={`flex items-start  gap-2 mb-4  ${isUser ? "flex-row-reverse" : ""}`} role="presentation">
+    <div className={`flex items-start  gap-2 mb-4 mt-2  ${isUser ? "flex-row-reverse" : ""}`}>
       <div className={`w-14 h-14 mt-auto  flex-shrink-0 `}>
         {!isUser ? (
-          <img src="/icons/avatar.png" alt="1" className="w-14 h-14 rounded-full shadow-md shadow-black/20" />
+          <img
+            src={getAssistantAvatar(personality).avatar}
+            alt={getAssistantAvatar(personality).alt}
+            className="w-14 h-14 rounded-full shadow-md shadow-black/20"
+          />
         ) : (
           //TODO: icona user?
-          <div className="w-14 h-14 rounded-full bg-gray-200 text-center place-content-center shadow-md shadow-black/20">
-            User
-          </div>
+          // <div className="w-14 h-14 rounded-full bg-gray-200 text-center place-content-center shadow-md shadow-black/20">
+          //   User
+          // </div>
+          <img
+            src={"/assets/avatar/user-avatar.png"}
+            alt={"user avatar"}
+            className="w-14 h-14 rounded-full shadow-md shadow-black/20"
+          />
         )}
       </div>
 

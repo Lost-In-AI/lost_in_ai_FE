@@ -1,14 +1,10 @@
-import type { Placeholders } from "../../types/type";
+import { BotPersonalities, type Placeholders } from "../../types/type";
 
 // funzioni di utility tipo questa
 export function UpperCase(text: string) {
   if (!text || text.trim().length === 0) return "";
   const trimmed = text.trim();
   return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
-}
-
-export function generateSessionID() {
-  return "session-" + Math.random().toString(36).slice(2, 9);
 }
 
 export function formatTimestap(timestamp?: string) {
@@ -19,14 +15,17 @@ export function formatTimestap(timestamp?: string) {
   });
 }
 
-// funzione del modulo per generare una durata casuale tra 5 e 10 secondi
+// funzione del modulo per generare una durata casuale tra 10 e 15 secondi
 export function randomDurationMs() {
-  return Math.floor(5 + Math.random() * 6) * 1000;
+  return Math.floor(10 + Math.random() * 6) * 1000;
 }
-
 export function parsePrompt(prompt: string, placeHolders: Placeholders) {
   const matches = prompt.match(/{{(.*?)}}/g); // trova tutti i placeholder in caps dentro "{{...}}"
-  if (!matches) return prompt;
+  if (!matches) {
+    // rimuovo comunque gli asterischi anche se non ci sono placeholder
+    return prompt.replace(/\*{1,2}(.*?)\*{1,2}/g, "$1");
+  }
+
   let result = prompt;
   for (const match of matches) {
     // per ogni match
@@ -36,5 +35,18 @@ export function parsePrompt(prompt: string, placeHolders: Placeholders) {
       result = result.replace(match, replacement);
     }
   }
-  return result; // ritorno il prompt pulito
+  // rimuovo gli asterischi lasciando solo il contenuto
+  result = result.replace(/\*{1,2}(.*?)\*{1,2}/g, "$1");
+  return result;
+}
+
+export function getAssistantAvatar(personality?: BotPersonalities | undefined): { avatar: string; alt: string } {
+  switch (personality) {
+    case BotPersonalities.WITTY:
+      return { avatar: "/assets/avatar/avatar-witty.png", alt: "Bot Witty" };
+    case BotPersonalities.INEPT:
+      return { avatar: "/assets/avatar/avatar-inept.png", alt: "Bot Inept" };
+    default:
+      return { avatar: "/assets/avatar/avatar-witty.png", alt: "Bot Witty" };
+  }
 }

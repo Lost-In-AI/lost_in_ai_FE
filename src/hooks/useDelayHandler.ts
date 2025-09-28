@@ -5,16 +5,34 @@ import { randomDurationMs } from "../utils/utils";
 export function useDelayHandler() {
   const { playMusic, stopMusic } = useMusic();
 
-  async function handleDelayedExecution(breakReason: string): Promise<void> {
-    return new Promise((resolve) => {
+  async function handleDelayedExecution(breakReason: string, abortSignal?: AbortSignal): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (abortSignal?.aborted) {
+        reject(new Error("AbortError"));
+        return;
+      }
+      let timeoutId: number | undefined;
+      const cleanup = () => {
+        if (timeoutId !== undefined) clearTimeout(timeoutId);
+        stopMusic();
+      };
+      const abortHandler = () => {
+        cleanup();
+        reject(new Error("AbortError"));
+      };
+      abortSignal?.addEventListener("abort", abortHandler);
       if (breakReason === BreakReason.MUSIC) {
         playMusic();
-        setTimeout(() => {
+        timeoutId = setTimeout(() => {
           stopMusic();
+          abortSignal?.removeEventListener("abort", abortHandler);
           resolve();
         }, randomDurationMs());
       } else {
-        setTimeout(resolve, 1000);
+        timeoutId = setTimeout(() => {
+          abortSignal?.removeEventListener("abort", abortHandler);
+          resolve();
+        }, 1000);
       }
     });
   }

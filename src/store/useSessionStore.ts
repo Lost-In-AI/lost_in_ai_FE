@@ -1,44 +1,58 @@
 import { create } from "zustand";
-import type { Message, SessionData } from "../../types/type";
-import { generateSessionID } from "../utils/utils";
+import type { BotPersonalities, Message, SessionData } from "../../types/type";
 
 interface SessionStore {
   sessionData: SessionData;
-  shouldAnimateLastMessage: boolean;
+  currentPersonality: BotPersonalities;
+  lastMessagePersonality: () => BotPersonalities | undefined;
+  setCurrentPersonality: (personality: BotPersonalities) => void;
+  setSession: (data: SessionData) => void;
   updateSession: (updates: Partial<SessionData>) => void;
-  saveToStorage: (data: SessionData) => void;
-  setShouldAnimateLastMessage: (value: boolean) => void;
   pushMessageToHistory: (message: Message) => void;
+  removeLastNMessagesFromHistory: (count: number) => void;
+  clearSession: () => void;
 }
 
+const initialSessionData: SessionData = {
+  session_id: null,
+  history: [],
+};
+
 export const useSessionStore = create<SessionStore>((set, get) => ({
-  sessionData: (() => {
-    const storedData = sessionStorage.getItem("session");
-    if (storedData) {
-      return JSON.parse(storedData);
-    } else {
-      return {
-        session_id: generateSessionID(),
-        history: [],
-      };
-    }
-  })(),
-  shouldAnimateLastMessage: false,
-  saveToStorage: (data: SessionData) => {
-    sessionStorage.setItem("session", JSON.stringify(data));
+  sessionData: initialSessionData,
+  currentPersonality: "witty" as BotPersonalities,
+  lastMessagePersonality: () => {
+    const current = get().sessionData;
+    return current.history.at(-1)?.bot_personality;
+  },
+  setCurrentPersonality: (personality: BotPersonalities) => {
+    set({ currentPersonality: personality });
+  },
+  setSession: (data: SessionData) => {
     set({ sessionData: data });
   },
-
   updateSession: (updates: Partial<SessionData>) => {
     const current = get().sessionData;
-    const updated = { ...current, ...updates };
-    get().saveToStorage(updated);
+    set({ sessionData: { ...current, ...updates } });
   },
-
-  setShouldAnimateLastMessage: (value: boolean) => set({ shouldAnimateLastMessage: value }),
   pushMessageToHistory: (message: Message) => {
     const currentHistory = get().sessionData.history;
     const updatedHistory = [...currentHistory, message];
     get().updateSession({ history: updatedHistory });
+
+    // Update current personality if message has bot_personality
+    if (message.bot_personality) {
+      get().setCurrentPersonality(message.bot_personality);
+    }
+  },
+  removeLastNMessagesFromHistory: (count: number) => {
+    const currentHistory = get().sessionData.history;
+    if (currentHistory.length >= count && count > 0) {
+      const updatedHistory = currentHistory.slice(0, -count);
+      get().updateSession({ history: updatedHistory });
+    }
+  },
+  clearSession: () => {
+    set({ sessionData: initialSessionData });
   },
 }));
