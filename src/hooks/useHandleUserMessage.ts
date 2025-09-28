@@ -12,7 +12,7 @@ const addError = useErrorStore.getState().addError;
 export default function useHandleUserMessage() {
   const { setStatus, setShouldAnimateLastMessage } = useChatStatusStore();
   const { delayCleanup } = useDelayHandler();
-  const { sendMessage, sendPatch } = useApiCall();
+  const { sendMessage } = useApiCall();
   const { processResponse } = useResponseProcessor();
   const { removeLastNMessagesFromHistory } = useSessionStore();
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -53,7 +53,7 @@ export default function useHandleUserMessage() {
     const botMessagesAdded = botMessagesAddedRef.current;
     if (botMessagesAdded > 1) {
       removeLastNMessagesFromHistory(botMessagesAdded - 1);
-      sendPatch();
+      // patchSession();
     }
     setShouldAnimateLastMessage(false);
     setStatus("idle");

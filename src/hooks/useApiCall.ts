@@ -7,6 +7,23 @@ const addError = useErrorStore.getState().addError;
 export function useApiCall() {
   const { sessionData, updateSession } = useSessionStore();
 
+  async function getSession(session_id?: string) {
+    console.log(`GET request - session_id: ${session_id}`);
+    // const request: Partial<BackendResponse> = {
+    //   session_id: session_id,
+    // };
+    // const res = await fetch(Endpoint.GET_SESSION, {
+    //   method: "GET",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(request),
+    // });
+    // if (!res.ok) {
+    //   addError(AppError.API_TIMEOUT);
+    // }
+    // const getResponse: Promise<BackendResponse> = await res.json();
+    // return getResponse;
+  }
+
   async function sendMessage(message: Message, abortSignal?: AbortSignal): Promise<BackendResponse> {
     updateSession({ history: [...(sessionData.history || []), message] });
     const request = {
@@ -26,22 +43,24 @@ export function useApiCall() {
     return assistantResponse;
   }
 
-  async function sendPatch(): Promise<void> {
-    console.log("PATCH!");
-    // const request = {
-    //   ...sessionData,
+  async function patchSession(session_id: string, history: Array<Message>) {
+    console.log(`PATCH request - session_id: ${session_id} | history: ${history}`);
+    // const request: Partial<BackendResponse> = {
+    //   session_id: session_id,
+    //   history: history,
     // };
     // const res = await fetch(Endpoint.PATCH_SESSION, {
     //   method: "PATCH",
     //   headers: { "Content-Type": "application/json" },
     //   body: JSON.stringify(request),
     // });
-
     // if (!res.ok) {
     //   addError(AppError.API_TIMEOUT);
     //   throw new Error(`HTTP error! status: ${res.status}`);
     // }
+    // const patchResponse: Promise<BackendResponse> = await res.json();
+    // return patchResponse;
   }
 
-  return { sendMessage, sendPatch };
+  return { getSession, sendMessage, patchSession };
 }
