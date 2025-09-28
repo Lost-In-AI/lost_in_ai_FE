@@ -1,9 +1,9 @@
-import { SignOutButton, useAuth } from "@clerk/clerk-react";
+// import { SignOutButton, useAuth } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
-import { navigation } from "../data/navigation";
+// import { navigation } from "../data/navigation";
 
 export default function Navbar() {
-  const { isLoaded, isSignedIn } = useAuth();
+  // const { isLoaded, isSignedIn } = useAuth();
   return (
     <nav className="bg-primary-700 text-white shadow-lg sticky top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,7 +11,7 @@ export default function Navbar() {
           <Link to={"/"} className="flex-shrink-0 flex items-center">
             <img className="h-8 w-auto" src="/logo.png" alt="Lost In AI" />
           </Link>
-          {isLoaded && (
+          {/* {isLoaded && (
             <div className="flex items-center space-x-4">
               {!isSignedIn ? (
                 navigation.map((item) =>
@@ -33,7 +33,7 @@ export default function Navbar() {
                 </SignOutButton>
               )}
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </nav>

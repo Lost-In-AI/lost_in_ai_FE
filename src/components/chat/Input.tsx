@@ -9,7 +9,6 @@ const MAX_MESSAGE_LENGTH = 500;
 export default function Input() {
   const [message, setMessage] = useState<string>("");
   const { handleUserMessage, cancelRequest } = useHandleUserMessage();
-
   const { loading } = useChatStatusStore();
 
   const isPending = loading === "pending";

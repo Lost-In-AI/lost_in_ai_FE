@@ -42,6 +42,7 @@ export interface Message {
   bot_personality?: BotPersonalities;
 }
 
+
 export interface SessionData {
   session_id: string | null;
   history: Message[];

@@ -15,11 +15,10 @@ export function formatTimestap(timestamp?: string) {
   });
 }
 
-// funzione del modulo per generare una durata casuale tra 5 e 10 secondi
+// funzione del modulo per generare una durata casuale tra 10 e 15 secondi
 export function randomDurationMs() {
-  return Math.floor(5 + Math.random() * 6) * 1000;
+  return Math.floor(10 + Math.random() * 6) * 1000;
 }
-
 export function parsePrompt(prompt: string, placeHolders: Placeholders) {
   const matches = prompt.match(/{{(.*?)}}/g); // trova tutti i placeholder in caps dentro "{{...}}"
   if (!matches) return prompt;

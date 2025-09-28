@@ -3,13 +3,14 @@ import { getAssistantAvatar } from "../../utils/utils";
 import LoadingIcon from "../icons/LoadingIcon";
 
 export default function MessageLoading() {
-  const { lastMessagePersonality } = useSessionStore();
+  const { currentPersonality } = useSessionStore();
+
   return (
     <div className="flex items-start gap-2 mb-4">
       <div className="w-14 h-14 mt-auto flex-shrink-0">
         <img
-          src={getAssistantAvatar(lastMessagePersonality()).avatar}
-          alt={getAssistantAvatar(lastMessagePersonality()).alt}
+          src={getAssistantAvatar(currentPersonality).avatar}
+          alt={getAssistantAvatar(currentPersonality).alt}
           className="w-14 h-14 rounded-full shadow-md shadow-black/20"
         />
       </div>

@@ -1,16 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { navigation } from "./data/navigation";
-import { ClerkProvider } from "@clerk/clerk-react";
+// import { ClerkProvider } from "@clerk/clerk-react";
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+// const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
-if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key");
-}
+// if (!PUBLISHABLE_KEY) {
+//   throw new Error("Missing Publishable Key");
+// }
 
 export default function App() {
   return (
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+    // <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
       <BrowserRouter>
         <Routes>
           {navigation &&
@@ -18,6 +18,6 @@ export default function App() {
             navigation.map((route) => <Route key={route.path} path={route.path} element={route.element} />)}
         </Routes>
       </BrowserRouter>
-    </ClerkProvider>
+    // </ClerkProvider>
   );
 }

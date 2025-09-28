@@ -10,23 +10,18 @@ import ErrorPopup from "../components/alerts/errorPopUp";
 import Navbar from "../components/Navbar";
 import Banner from "../components/Banner";
 import MainSection from "../components/MainSection";
-import { useEffect, useState } from "react";
-import { useApiCall } from "../hooks/useApiCall";
+// import { useEffect } from "react";
+// import { useApiCall } from "../hooks/useApiCall";
 
 export default function Home() {
-  const { getSession } = useApiCall();
+  // const { getSession } = useApiCall();
   const { sessionData } = useSessionStore();
   const { shouldAnimateLastMessage } = useChatStatusStore();
   const { currentError } = useErrorStore();
-  const [hasLoaded, setHasLoaded] = useState(false);
 
-  useEffect(() => {
-    if (!hasLoaded) {
-      getSession();
-      setHasLoaded(true);
-    }
-    return;
-  }, [getSession, hasLoaded]);
+  // useEffect(() => {
+  //   getSession();
+  // }, []);
 
   return (
     <>
