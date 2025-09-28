@@ -12,12 +12,24 @@ const addError = useErrorStore.getState().addError;
 export default function useHandleUserMessage() {
   const { setStatus, setShouldAnimateLastMessage } = useChatStatusStore();
   const { delayCleanup } = useDelayHandler();
-  const { sendMessage } = useApiCall();
+  const { sendMessage, patchSession } = useApiCall();
   const { processResponse } = useResponseProcessor();
-  const { removeLastNMessagesFromHistory } = useSessionStore();
+  const { removeLastNMessagesFromHistory, sessionData } = useSessionStore();
   const abortControllerRef = useRef<AbortController | null>(null);
   const currentResponseCountRef = useRef<number>(0);
   const botMessagesAddedRef = useRef<number>(0);
+
+  async function patchSessionAsync(history: Message[]) {
+    try {
+      if (sessionData.session_id && history) {
+        console.log("patch");
+        const res = await patchSession(sessionData.session_id, history);
+        console.log("res patch", res);
+      }
+    } catch (error) {
+      console.error("Error patching session in background:", error);
+    }
+  }
 
   async function handleUserMessage(message: Message) {
     try {
@@ -46,18 +58,23 @@ export default function useHandleUserMessage() {
     }
   }
 
-  function cancelRequest() {
+  async function cancelRequest() {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
     }
-    const botMessagesAdded = botMessagesAddedRef.current;
-    if (botMessagesAdded > 1) {
-      removeLastNMessagesFromHistory(botMessagesAdded - 1);
-      // patchSession();
-    }
+    delayCleanup();
     setShouldAnimateLastMessage(false);
     setStatus("idle");
-    delayCleanup();
+
+    const botMessagesAdded = botMessagesAddedRef.current;
+    console.log("botMessagesAdded", botMessagesAdded);
+    if (botMessagesAdded >= 1) {
+      // Creo la history finale prima di modificare lo stato
+      const updatedHistory = sessionData.history.slice(0, -(botMessagesAdded - 1));
+
+      removeLastNMessagesFromHistory(botMessagesAdded - 1);
+      await patchSessionAsync(updatedHistory);
+    }
   }
 
   return { handleUserMessage, cancelRequest };
