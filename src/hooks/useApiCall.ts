@@ -11,7 +11,7 @@ export function useApiCall() {
 
   async function getSession(session_id?: string) {
     console.log(`GET request - session_id: ${session_id}`);
-    const res = await fetch(`${Endpoint.GET_SESSION}${session_id && `?session_id=${session_id}`}`, {
+    const res = await fetch(`${Endpoint.GET_SESSION}${session_id ?? `?session_id=${session_id}`}`, {
       method: "GET",
     });
     if (!res.ok) {
