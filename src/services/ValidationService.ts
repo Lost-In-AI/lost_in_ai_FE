@@ -55,9 +55,6 @@ export class ValidationService {
   }
 
   public isPasswordValid(password: string | null): boolean {
-    return (
-      this.validatePasswordLength(password) &&
-      this.validatePasswordSecurity(password)
-    );
+    return this.validatePasswordLength(password) && this.validatePasswordSecurity(password);
   }
 }
