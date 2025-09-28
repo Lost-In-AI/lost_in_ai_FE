@@ -39,7 +39,7 @@ export function useApiCall() {
     }
     const assistantResponse: BackendResponse = await res.json();
     updateSession({ session_id: assistantResponse.session_id });
-    console.log("assistantResponse", assistantResponse)
+    console.log("assistantResponse", assistantResponse);
     return assistantResponse;
   }
 

@@ -11,13 +11,13 @@ import { navigation } from "./data/navigation";
 export default function App() {
   return (
     // <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-      <BrowserRouter>
-        <Routes>
-          {navigation &&
-            navigation.length > 0 &&
-            navigation.map((route) => <Route key={route.path} path={route.path} element={route.element} />)}
-        </Routes>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        {navigation &&
+          navigation.length > 0 &&
+          navigation.map((route) => <Route key={route.path} path={route.path} element={route.element} />)}
+      </Routes>
+    </BrowserRouter>
     // </ClerkProvider>
   );
 }
