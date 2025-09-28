@@ -1,27 +1,29 @@
 import { Endpoint, type BackendResponse, type Message } from "../../types/type";
 import { useSessionStore } from "../store/useSessionStore";
 import { useErrorStore, AppError } from "../store/useErrorStore";
+import useAuthenticatedFetch from "./useAuthenticatedFetch";
 
 const addError = useErrorStore.getState().addError;
 
 export function useApiCall() {
   const { sessionData, updateSession } = useSessionStore();
+  const { authenticatedFetch } = useAuthenticatedFetch();
 
   async function getSession(session_id?: string) {
     console.log(`GET request - session_id: ${session_id}`);
-    // const request: Partial<BackendResponse> = {
-    //   session_id: session_id,
-    // };
-    // const res = await fetch(Endpoint.GET_SESSION, {
-    //   method: "GET",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(request),
-    // });
-    // if (!res.ok) {
-    //   addError(AppError.API_TIMEOUT);
-    // }
-    // const getResponse: Promise<BackendResponse> = await res.json();
-    // return getResponse;
+    const request: Partial<BackendResponse> = {
+      session_id: session_id,
+    };
+    const res = await authenticatedFetch(Endpoint.GET_SESSION, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(request),
+    });
+    if (!res.ok) {
+      addError(AppError.API_TIMEOUT);
+    }
+    const getResponse: Promise<BackendResponse> = await res.json();
+    return getResponse;
   }
 
   async function sendMessage(message: Message, abortSignal?: AbortSignal): Promise<BackendResponse> {
