@@ -15,11 +15,17 @@ export class ValidationService {
     return emailRegex.test(email);
   }
 
-  private validatePassword(password: string | null): boolean {
+  private validatePasswordSecurity(password: string | null): boolean {
     if (!password) return false;
     const hasNumber = /\d/.test(password);
     const hasUppercase = /[A-Z]/.test(password);
     return hasNumber && hasUppercase;
+  }
+
+  private validatePasswordLength(password: string | null): boolean {
+    if (!password) return false;
+    const isNotShort = password.length >= 8;
+    return isNotShort;
   }
 
   public validateFormData(formData: FormData): ValidationResult {
@@ -31,9 +37,14 @@ export class ValidationService {
       isValid = false;
     }
 
-    if (!this.validatePassword(formData.password)) {
-      errors.password = "La password deve contenere almeno 1 numero e 1 lettera maiuscola";
+    if (!this.validatePasswordLength(formData.password)) {
       isValid = false;
+      errors.password = "La password deve essere lunga almeno 8 caratteri";
+    }
+
+    if (this.validatePasswordLength(formData.password) && !this.validatePasswordSecurity(formData.password)) {
+      isValid = false;
+      errors.password = "La password deve contenere almeno 1 numero e 1 lettera maiuscola";
     }
 
     return { isValid, errors };

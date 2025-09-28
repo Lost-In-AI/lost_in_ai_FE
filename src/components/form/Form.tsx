@@ -40,6 +40,7 @@ export default function Form({ isLogin }: FormProps) {
     if (!result.success) {
       console.log("Risultato login/register:", result);
       if (result.errors) {
+        console.log(result.errors);
         setErrors(result.errors);
       }
     }
