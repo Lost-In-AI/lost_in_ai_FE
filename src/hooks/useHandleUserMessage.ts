@@ -24,7 +24,9 @@ export default function useHandleUserMessage() {
       abortControllerRef.current = new AbortController(); // inizializzo controller
       botMessagesAddedRef.current = 0; // inizializzo il numero dei messaggi
       setStatus("pending");
+      console.log("Message", message);
       const assistantResponse = await sendMessage(message, abortControllerRef.current.signal);
+      console.log("assistatResponse", assistantResponse);
       if (assistantResponse && assistantResponse.current_responses) {
         currentResponseCountRef.current = assistantResponse.current_responses.length;
         await processResponse(assistantResponse, abortControllerRef.current?.signal, botMessagesAddedRef);
