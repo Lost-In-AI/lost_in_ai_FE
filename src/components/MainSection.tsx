@@ -10,17 +10,14 @@ export default function MainSection() {
             </h2>
             <div className="space-y-3 md:text-lg text-black leading-relaxed">
               <p>
-                Da oltre 3 anni nel settore bancario, siamo l'istituto di credito che mette sempre al primo posto la
-                trasparenza <em>(subito dopo i nostri, ovviamente)</em>.
+                Da oltre 3 anni nel settore bancario, siamo l'istituto di credito che mette sempre al primo posto i tuoi
+                interessi (subito dopo i nostri, ovviamente).
               </p>
-
               <p>
-                Con le nostre innovative polizze assicurative sui depositi che coprono fino al 73% del capitale sociale{" "}
-                <em>(in caso di condizioni meteorologiche favorevoli)</em> e tassi di interesse competitivi dello 0,001%
-                annuo <em>(soggetti a variazioni orarie)</em>, garantiamo la massima trasparenza nelle nostre
-                operazioni.
+                Con le nostre innovative polizze assicurative sui depositi che coprono fino al 73% del capitale versato
+                (in caso di condizioni meteorologiche favorevoli) e tassi di interesse competitivi dello 0,001% annuo
+                (soggetti a variazioni orarie), garantiamo la massima trasparenza nelle nostre operazioni.
               </p>
-
               <p>
                 I nostri consulenti esperti, freschi di diploma triennale in "Finanza Creativa", sono sempre pronti ad
                 ascoltarti negli orari più comodi: dalle 14:23 alle 14:31 del secondo martedì di ogni mese.
