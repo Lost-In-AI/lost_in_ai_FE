@@ -37,7 +37,7 @@ export function useMusic() {
         await context.resume();
       }
       // Carica e decodifica l'audio
-      const response = await fetch("/assets/audio/airport-lounge.mp3");
+      const response = await fetch("/assets/audio/music.mp3");
       if (!response.ok) {
         addError(AppError.AUDIO_PLAYBACK_ERROR);
         return;

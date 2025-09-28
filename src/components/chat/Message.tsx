@@ -19,7 +19,7 @@ export default function Message({ text, personality, isUser, timestamp, animate 
   const assistantVariant = "bg-primary-300/60 text-gray-800 rounded-md";
 
   return (
-    <div className={`flex items-start  gap-2 mb-4  ${isUser ? "flex-row-reverse" : ""}`}>
+    <div className={`flex items-start  gap-2 mb-4 mt-2  ${isUser ? "flex-row-reverse" : ""}`}>
       <div className={`w-14 h-14 mt-auto  flex-shrink-0 `}>
         {!isUser ? (
           <img
@@ -29,9 +29,14 @@ export default function Message({ text, personality, isUser, timestamp, animate 
           />
         ) : (
           //TODO: icona user?
-          <div className="w-14 h-14 rounded-full bg-gray-200 text-center place-content-center shadow-md shadow-black/20">
-            User
-          </div>
+          // <div className="w-14 h-14 rounded-full bg-gray-200 text-center place-content-center shadow-md shadow-black/20">
+          //   User
+          // </div>
+          <img
+            src={"/assets/avatar/user-avatar.png"}
+            alt={"user avatar"}
+            className="w-14 h-14 rounded-full shadow-md shadow-black/20"
+          />
         )}
       </div>
 
