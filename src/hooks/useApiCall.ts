@@ -27,7 +27,7 @@ export function useApiCall() {
       ...sessionData,
       current_message: message.text,
     };
-    const res = await fetch(Endpoint.SEND_MESSAGE, {
+    const res = await authenticatedFetch(Endpoint.SEND_MESSAGE, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(request),
