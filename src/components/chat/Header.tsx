@@ -31,11 +31,6 @@ export default function Header({ onClose }: HeaderProps) {
       <div className="mr-1 flex">
         <Button
           tabIndex={0}
-          variant="personality"
-          className="focus:outline-none focus:ring-2 focus:ring-white h-10 hover:brightness-90 hover:opacity-70 mr-4 text-end"
-        />
-        <Button
-          tabIndex={0}
           onClick={onClose}
           variant="close"
           className="focus:outline-none focus:ring-2 focus:ring-white h-10 hover:brightness-90 hover:opacity-70 mr-4 text-end"
