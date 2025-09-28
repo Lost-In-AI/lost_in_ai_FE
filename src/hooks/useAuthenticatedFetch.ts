@@ -6,12 +6,10 @@ export default function useAuthenticatedFetch() {
   async function authenticatedFetch(url: string, options: RequestInit = {}): Promise<Response> {
     try {
       const token = await getToken();
-      // if (!token) {
-      //   throw new Error("Il token non è valido");
-      // }
+      console.log(token);
       const defaultHeaders: Record<string, string> = {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: token ? `Bearer ${token}` : "",
       };
       const headers = {
         ...defaultHeaders,

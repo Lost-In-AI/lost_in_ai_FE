@@ -11,13 +11,8 @@ export function useApiCall() {
 
   async function getSession(session_id?: string) {
     console.log(`GET request - session_id: ${session_id}`);
-    const request: Partial<BackendResponse> = {
-      session_id: session_id,
-    };
     const res = await authenticatedFetch(Endpoint.GET_SESSION, {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(request),
     });
     if (!res.ok) {
       addError(AppError.API_TIMEOUT);
