@@ -8,8 +8,6 @@ Lost-In-AI is a front-end project that simulates bank customer service. The user
 
 - Manage sessions and persistent chat history.
 
-- Ensure secure authentication through Clerk.
-
 - Provide a consistent and responsive user experience, with a simple and clear interface despite the bot’s frustrating behavior.
 
 . Give users control: at any time they can interrupt the interaction with the chatbot, ensuring freedom in managing their own experience.
@@ -32,7 +30,6 @@ The project is organized into two main parts:
 - **Zustand** - Lightweight state management
 - **React Router DOM v7** - Client-side routing
 - **ESLint + Prettier + Husky** - Code quality, formatting and pre-commit hooks
-- **Clerk** - secure and easy-to-integrate external authentication solution.
 
 ## Getting Started
 
@@ -94,11 +91,6 @@ This project uses:
 - **useChatStatusStore** → manages loading state: "idle" | "pending".
 - **useSessionStore** → maintains sessionData { session_id, history } and the shouldAnimateLastMessage flag.
 
-## Authentication
-
-- Managed via Clerk: login, logout, registration, and user sessions.
-- Environment variable: VITE_CLERK_PUBLISHABLE_KEY.
-
 
 ## Main Flows
 
@@ -110,19 +102,9 @@ This project uses:
 4. The state is updated in useSessionStore and persisted in sessionStorage.
 5. The UI displays the new message.
 
-## Authentication and Clerk
-
-Clerk is an authentication and user management service for web and mobile applications. It handles login, logout, registration, user profiles, sessions, and permissions
-
-- The frontend uses Clerk for login and session management.
-- The publishable key is provided via the environment variable VITE_CLERK_PUBLISHABLE_KEY.
-- The session token is sent to the backend for protected API calls.
-
 ## Environment Variables
 
 - VITE_BE_BASE_URL: Backend URL for API calls.
-- VITE_CLERK_PUBLISHABLE_KEY: Provider key to enable Clerk.
-
 
 ## Team Contributions
 
@@ -143,7 +125,6 @@ This section documents the contributions made by each team member during the dev
 - Message display components
 - Loading animations and states
 - Chat wrapper and layout components
-- Development and implementation of the login and register page
 - **Session Storage Logic**: Implemented session storage functionality for maintaining chat history and user state.
 
 ### Donato
