@@ -37,7 +37,7 @@ export function parsePrompt(prompt: string, placeHolders: Placeholders) {
   }
   // rimuovo gli asterischi lasciando solo il contenuto
   result = result.replace(/\*{1,2}(.*?)\*{1,2}/g, "$1");
-  return result; 
+  return result;
 }
 
 export function getAssistantAvatar(personality?: BotPersonalities | undefined): { avatar: string; alt: string } {
