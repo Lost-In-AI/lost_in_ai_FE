@@ -43,24 +43,24 @@ export function useApiCall() {
     return assistantResponse;
   }
 
-  async function patchSession(session_id: string, history: Array<Message>) {
-    console.log(`PATCH request - session_id: ${session_id} | history: ${history}`);
-    const request: Partial<BackendResponse> = {
-      session_id: session_id,
-      history: history,
-    };
-    const res = await fetch(Endpoint.PATCH_SESSION, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(request),
-    });
-    if (!res.ok) {
-      addError(AppError.API_TIMEOUT);
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-    const patchResponse: Promise<BackendResponse> = await res.json();
-    return patchResponse;
-  }
+  // async function patchSession(session_id: string, history: Array<Message>) {
+  //   console.log(`PATCH request - session_id: ${session_id} | history: ${history}`);
+  //   const request: Partial<BackendResponse> = {
+  //     session_id: session_id,
+  //     history: history,
+  //   };
+  //   const res = await fetch(Endpoint.PATCH_SESSION, {
+  //     method: "PATCH",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(request),
+  //   });
+  //   if (!res.ok) {
+  //     addError(AppError.API_TIMEOUT);
+  //     throw new Error(`HTTP error! status: ${res.status}`);
+  //   }
+  //   const patchResponse: Promise<BackendResponse> = await res.json();
+  //   return patchResponse;
+  // }
 
-  return { getSession, sendMessage, patchSession };
+  return { getSession, sendMessage };
 }

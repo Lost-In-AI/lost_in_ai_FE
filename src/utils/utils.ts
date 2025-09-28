@@ -21,7 +21,11 @@ export function randomDurationMs() {
 }
 export function parsePrompt(prompt: string, placeHolders: Placeholders) {
   const matches = prompt.match(/{{(.*?)}}/g); // trova tutti i placeholder in caps dentro "{{...}}"
-  if (!matches) return prompt;
+  if (!matches) {
+    // rimuovo comunque gli asterischi anche se non ci sono placeholder
+    return prompt.replace(/\*{1,2}(.*?)\*{1,2}/g, "$1");
+  }
+
   let result = prompt;
   for (const match of matches) {
     // per ogni match
@@ -31,7 +35,9 @@ export function parsePrompt(prompt: string, placeHolders: Placeholders) {
       result = result.replace(match, replacement);
     }
   }
-  return result; // ritorno il prompt pulito
+  // rimuovo gli asterischi lasciando solo il contenuto
+  result = result.replace(/\*{1,2}(.*?)\*{1,2}/g, "$1");
+  return result; 
 }
 
 export function getAssistantAvatar(personality?: BotPersonalities | undefined): { avatar: string; alt: string } {
