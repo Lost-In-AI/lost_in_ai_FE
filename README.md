@@ -16,13 +16,9 @@
 
 - [Descrizione](#-descrizione)
 - [Obiettivi del Sistema](#-obiettivi-del-sistema)
-- [Architettura](#-architettura)
-- [Tech Stack](#-tech-stack)
 - [Getting Started](#-getting-started)
 - [Struttura del Progetto](#-struttura-del-progetto)
-- [Store e Gestione dello Stato](#-store-e-gestione-dello-stato)
 - [Flussi Principali](#-flussi-principali)
-- [Variabili d'Ambiente](#-variabili-dambiente)
 - [Contributi del Team](#-contributi-del-team)
 
 ---
