@@ -1,8 +1,25 @@
 # Lost in AI
 
-Lost in AI simulates a phone customer service experience with the most frustrating elements: hold music, continuous transfers, and AI operators (via OpenAI) that never seem to understand the problem. All designed to be technically brilliant but deliberately useless, demonstrating skills in conversational AI, development, deploy and UX design.
+Lost-In-AI is a front-end project that simulates bank customer service. The user interacts with Bankly, a deliberately frustrating and ineffective AI bot designed to poke fun at the often negative experience of banking call centers.
 
- While all chatbots try to be helpful, ours must be memorably useless but in a sophisticated and entertaining way.
+## System Objectives
+
+- Simulate the experience of an inefficient banking customer service, with the bot intentionally giving nonsensical responses, satirizing real call centers.
+
+- Manage sessions and persistent chat history.
+
+- Provide a consistent and responsive user experience, with a simple and clear interface despite the bot’s frustrating behavior.
+
+. Give users control: at any time they can interrupt the interaction with the chatbot, ensuring freedom in managing their own experience.
+
+## General Architecture
+
+The project is organized into two main parts:
+
+- Frontend: developed with React, TypeScript, and Vite.
+
+- Backend: an external service (API POST ${VITE_BE_BASE_URL}/chat) that handles the bot’s simulated responses.
+
 
 ## Tech Stack
 
@@ -69,6 +86,26 @@ This project uses:
 - **Centralized routing**
 - **TypeScript** with strict type checking
 
+## Main Stores
+
+- **useChatStatusStore** → manages loading state: "idle" | "pending".
+- **useSessionStore** → maintains sessionData { session_id, history } and the shouldAnimateLastMessage flag.
+
+
+## Main Flows
+
+**Chat Flow** 
+
+1. The user enters a message.
+2. The message is sent to POST /chat.
+3. The backend replies with a simulated message.
+4. The state is updated in useSessionStore and persisted in sessionStorage.
+5. The UI displays the new message.
+
+## Environment Variables
+
+- VITE_BE_BASE_URL: Backend URL for API calls.
+
 ## Team Contributions
 
 This section documents the contributions made by each team member during the development of the project.
@@ -79,6 +116,7 @@ This section documents the contributions made by each team member during the dev
 - **Tailwind Implementation**: Set up Tailwind CSS design structure including custom variables and configuration
 - **Global State Management**: Implemented global state management for chat status using Zustand
 - **Backend Integration**: Developed the logic for API calls and communication with the backend services
+- **Animation flow management**
 
 ### Emy
 
@@ -91,6 +129,7 @@ This section documents the contributions made by each team member during the dev
 
 ### Donato
 
+- Development and implementation of the login page and initial project setup and configuration of the development environment
 - **Music Flow Management**: Developed the complete music system and audio management for the application
 - **Landing Page**: Created the UI structure and components for the landing page
 
@@ -98,3 +137,6 @@ This section documents the contributions made by each team member during the dev
 
 - **Core Components** (Developed essential reusable components for the application including):
 - Button component with consistent styling
+- Error Messages
+- Creative and conceptual design, providing graphic assets that help customize the chatbot's appearance.
+
