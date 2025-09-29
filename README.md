@@ -1,142 +1,191 @@
-# Lost in AI
+# Lost in AI - Frontend Documentation
 
-Lost-In-AI is a front-end project that simulates bank customer service. The user interacts with Bankly, a deliberately frustrating and ineffective AI bot designed to poke fun at the often negative experience of banking call centers.
+<div align="center">
 
-## System Objectives
+**Un'esperienza satirica di customer service bancario**
 
-- Simulate the experience of an inefficient banking customer service, with the bot intentionally giving nonsensical responses, satirizing real call centers.
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+</div>
 
-- Manage sessions and persistent chat history.
+---
 
-- Provide a consistent and responsive user experience, with a simple and clear interface despite the bot’s frustrating behavior.
+## 📋 Indice
 
-. Give users control: at any time they can interrupt the interaction with the chatbot, ensuring freedom in managing their own experience.
+- [Descrizione](#-descrizione)
+- [Obiettivi del Sistema](#-obiettivi-del-sistema)
+- [Architettura](#-architettura)
+- [Tech Stack](#-tech-stack)
+- [Getting Started](#-getting-started)
+- [Struttura del Progetto](#-struttura-del-progetto)
+- [Store e Gestione dello Stato](#-store-e-gestione-dello-stato)
+- [Flussi Principali](#-flussi-principali)
+- [Variabili d'Ambiente](#-variabili-dambiente)
+- [Contributi del Team](#-contributi-del-team)
 
-## General Architecture
+---
 
-The project is organized into two main parts:
+## 📖 Descrizione
 
-- Frontend: developed with React, TypeScript, and Vite.
+**Lost-In-AI** è un progetto frontend che simula un servizio clienti bancario con un tocco satirico. Gli utenti interagiscono con **Bankly**, un bot AI volutamente frustrante e inefficace, progettato per ironizzare sull'esperienza spesso negativa dei call center bancari.
 
-- Backend: an external service (API POST ${VITE_BE_BASE_URL}/chat) that handles the bot’s simulated responses.
+> **Nota**: Questo progetto è stato sviluppato come satira delle esperienze frustranti con i sistemi di customer service automatizzati. Bankly è volutamente inefficace per scopi umoristici ed educativi.
 
+---
 
-## Tech Stack
+## 🎯 Obiettivi del Sistema
 
-- **React 19** - Modern React with latest features
-- **TypeScript** - Type-safe JavaScript
-- **Vite** - Fast build tool and development server
-- **Tailwind CSS v4** - Utility-first CSS framework
-- **Zustand** - Lightweight state management
-- **React Router DOM v7** - Client-side routing
-- **ESLint + Prettier + Husky** - Code quality, formatting and pre-commit hooks
+- **Simulare l'inefficienza**: Il bot risponde in modo volutamente nonsense, ironizzando sui call center reali
+- **Gestione sessioni**: Mantenere cronologia chat persistente attraverso le sessioni
+- **UX coerente**: Interfaccia semplice e chiara nonostante il comportamento frustrante del bot
+- **Controllo utente**: Possibilità di interrompere l'interazione in qualsiasi momento
 
-## Getting Started
+---
 
-### Installation
+## 🏗️ Architettura
 
-1. Clone the repository:
+Il progetto è organizzato in due parti principali:
+
+- **Frontend**: Sviluppato con React 19, TypeScript e Vite
+- **Backend**: Servizio esterno che gestisce le risposte simulate del bot via API REST `POST ${VITE_BE_BASE_URL}/chat`
+
+---
+
+## 🛠️ Tech Stack
+
+| Tecnologia | Versione | Scopo |
+|------------|----------|-------|
+| **React** | 19 | Libreria UI moderna per interfacce interattive |
+| **TypeScript** | 5.0+ | Tipizzazione statica per la riduzione bug |
+| **Vite** | 5.0+ | Build tool rapido e dev-server performante |
+| **Tailwind CSS** | v4 | Framework CSS utility-first |
+| **Zustand** | Latest | State management leggero |
+| **ESLint + Prettier + Husky** | Latest | Code quality e pre-commit hooks |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisiti
+
+- Node.js (v18 o superiore)
+- npm o yarn
+
+### Installazione
 ```bash
+# 1. Clona il repository
 git clone https://github.com/Lost-In-AI/lost_in_ai_FE
-```
-
-2. Navigate to the project directory:
-```bash
 cd lost_in_ai_FE
-```
 
-3. Install dependencies:
-```bash
+# 2. Installa le dipendenze
 npm install
+
+# 3. Configura le variabili d'ambiente
+# Crea un file .env nella root del progetto
+touch .env
+```
+### Aggiungi le seguenti variabili nel file .env:
+```tsx
+VITE_BE_BASE_URL=<url-del-backend>
 ```
 
-4. Start the development server:
 ```bash
+# 4. Avvia il server di sviluppo
 npm run dev
 ```
+---
 
-The application will be available at `http://localhost:5173`
+## 📁 Struttura del Progetto
 
-### Available Scripts
-
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build for production
-- `npm run lint` - Run ESLint to check code quality
-- `npm run preview` - Preview production build locally
-
-## Project Structure
-
-```
-src/
-├── components/         # Reusable UI components
-│   └── button/         # Button components
-├── hooks/              # Custom React hooks
-├── pages/              # Page-level components
-├── store/              # Zustand stores for global state
-└── data/               # Mock data
-
-types/                  # Global TypeScript definitions
+```bash
+lost_in_ai_FE/
+├── public/                 # Asset 
+├── src/
+│   ├── components/         # Componenti UI riutilizzabili
+│   ├── hooks/              # Custom React hooks
+│   ├── pages/              # Componenti a livello di pagina
+│   ├── store/              # Store Zustand per lo stato globale
+├── types/                  # Definizioni TypeScript globali
+├── .env                    # Variabili d'ambiente
+├── package.json            
+├── vite.config.ts          
 ```
 
-## Development
+# 🔄 Flussi Principali
+## Flusso chat
 
-This project uses:
-- **Zustand** for global state management
-- **Custom hooks** for reusable logic
-- **Centralized routing**
-- **TypeScript** with strict type checking
+```tsx
+1. Utente inserisce messaggio
+   ↓
+2. Frontend invia POST /chat al backend
+   ↓
+3. Backend risponde con messaggio simulato
+   ↓
+4. useSessionStore aggiorna lo stato
+   ↓
+5. UI mostra nuovo messaggio con animazione
+```
+## Flusso interruzione
+```tsx
+1. Utente clicca "Interrompi"
+   ↓
+2. Richiesta HTTP viene annullata
+   ↓
+3. Stato viene mantenuto coerente
+   ↓
+4. UI torna allo stato "idle"
+```
 
-## Main Stores
+## 👥 Contributi del Team
 
-- **useChatStatusStore** → manages loading state: "idle" | "pending".
-- **useSessionStore** → maintains sessionData { session_id, history } and the shouldAnimateLastMessage flag.
+### 🎨 Federico
+- **Design Figma**: Creazione del design completo e mockup dell'applicazione
+- **Implementazione Tailwind**: Setup della struttura di design con Tailwind CSS, incluse variabili e configurazioni personalizzate
+- **Gestione dello Stato Globale**: Implementazione della gestione dello stato globale per lo stato della chat utilizzando Zustand
+- **Integrazione Backend**: Sviluppo della logica per le chiamate API e comunicazione con i servizi backend
+- **Gestione flusso di animazione**: Coordinamento delle animazioni nell'interfaccia
+- **Gestione cambio di personalità**: Coordinamento degli avatar del chatbot
+
+### 💬 Emy
+- **Project managment**: Creazione e gestione delle issue, coordinamento dello sviluppo frontend e organizzazione del workflow del team
+- **Componenti UI del Chatbot**: Costruzione dell'interfaccia completa del chatbot:
+  - Componente di input per i messaggi dell utente
+  - Componenti per la visualizzazione dei messaggi
+  - IU Stato di caricamento
+  - Wrapper della chat e componenti di layout
+- **Gestione Interruzioni**: Implementazione della possibilità di interrompere o bloccare le richieste al server, mantenendo lo stato dell'app coerente
+
+### 🎵 Donato
+- **Setup Iniziale**: Setup del progetto e configurazione dell'ambiente di sviluppo
+- **Gestione del Flusso Musicale**: Sviluppo del sistema musicale completo e gestione dell'audio per l'applicazione
+- **Landing Page**: Creazione della struttura UI e dei componenti per la pagina di atterraggio
+
+### 🎨 Virginia
+- **Componenti Core**: Sviluppo di componenti essenziali e riutilizzabili
+  - Componente Button con styling coerente al figma,
+  - Component Error Message
+  - Gestione degli errori dell'applicazione
+- **Design Creativo e Concettuale**: Fornitura di asset grafici che contribuiscono alla personalizzazione dell'aspetto del chatbot
+
+---
+
+### Note Importanti
+
+- Bankly è progettato per dare risposte frustranti: è una feature, non un bug! 😄
+
+---
+
+## 📄 Licenza
+
+Questo progetto è stato sviluppato a scopo educativo e satirico.
+
+---
 
 
-## Main Flows
+<div align="center">
 
-**Chat Flow** 
+**Made with ❤️ (and a lot of frustration) by the Lost-In-AI Team**
 
-1. The user enters a message.
-2. The message is sent to POST /chat.
-3. The backend replies with a simulated message.
-4. The state is updated in useSessionStore and persisted in sessionStorage.
-5. The UI displays the new message.
-
-## Environment Variables
-
-- VITE_BE_BASE_URL: Backend URL for API calls.
-
-## Team Contributions
-
-This section documents the contributions made by each team member during the development of the project.
-
-### Federico
-
-- **Figma Design**: Created the complete visual design and mockups for the application
-- **Tailwind Implementation**: Set up Tailwind CSS design structure including custom variables and configuration
-- **Global State Management**: Implemented global state management for chat status using Zustand
-- **Backend Integration**: Developed the logic for API calls and communication with the backend services
-- **Animation flow management**
-
-### Emy
-
-- **Chatbot UI Components** (Built the complete chatbot user interface including):
-- Input component for user messages
-- Message display components
-- Loading animations and states
-- Chat wrapper and layout components
-- **Session Storage Logic**: Implemented session storage functionality for maintaining chat history and user state.
-
-### Donato
-
-- Development and implementation of the login page and initial project setup and configuration of the development environment
-- **Music Flow Management**: Developed the complete music system and audio management for the application
-- **Landing Page**: Created the UI structure and components for the landing page
-
-### Virginia
-
-- **Core Components** (Developed essential reusable components for the application including):
-- Button component with consistent styling
-- Error Messages
-- Creative and conceptual design, providing graphic assets that help customize the chatbot's appearance.
-
+</div>
